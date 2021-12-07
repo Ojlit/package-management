@@ -4,7 +4,7 @@
 
 
 
-## Jenkins Installation And Setup In AWS EC2 Redhat Instnace.
+## Jenkins Installation And Setup In AWS EC2 Redhat Instance.
 ##### Prerequisite
 + AWS Acccount.
 + Create Redhat EC2 t2.medium Instance with 4GB RAM.
@@ -18,6 +18,7 @@
 
 ``` sh
 sudo hostname ci
+sudo su - ec2-user
 sudo yum -y install unzip wget tree git
 sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
 sudo yum install jdk-8u131-linux-x64.rpm -y
@@ -41,11 +42,23 @@ sudo systemctl status jenkins
 ```
 # Access Jenkins from the browser
 ```sh
-public-ip:8080
+#public-ip:portNumner (8080)
 curl ifconfig.co 
 ```
-# get jenkins initial admin password
+# get jenkins initial admin password to access browser
 ```sh
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
+# Customize Jenkins on Browser
++ Select "install suggested plugins"
++ Create First Admin User
+
+### Integrate Jenkins with build and deployment tools
++ create project in Jenkins
++ On Jenkin dashboard:
+  + Click "New item"
+  + Enter project name
+  + Select Freestyle or Pipeline
+  + 
+  + 
