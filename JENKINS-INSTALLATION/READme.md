@@ -55,10 +55,17 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 + Create First Admin User
 
 ### Integrate Jenkins with build and deployment tools
-+ create project in Jenkins
-+ On Jenkin dashboard:
++ Create project in Jenkins. On Jenkin dashboard:
   + Click "New item"
   + Enter project name
-  + Select Freestyle or Pipeline
-  + 
-  + 
+  + Select Freestyle or Pipeline and click "OK"
+  + On General Tab, enter project decriciption
+  + Select "Save"
+  
+# Intergarte Jenkins with GitHub
++ In the project, select "Configure"
++ Complete Source Code Manaagement definition:
+ + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
+   + For Private GitHub Repositories, Set up authentication by entering existing GitHub credentials (username, password or PA Tokens)
+  
+    
