@@ -184,3 +184,6 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Add Tomcat credentials - Username and password set in step 1 above (must have role of manager-script)
  + Add Tomcat URL htttp://publicIP:PortNumber
  + Save
+ + Build Now...
+
++ View deployed application using the contextpath "htttp://publicIP:PortNumber/artifactName"
