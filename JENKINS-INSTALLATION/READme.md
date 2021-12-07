@@ -54,7 +54,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 + Select "install suggested plugins"
 + Create First Admin User
 
-### Integrate Jenkins with build and deployment tools
+# Integrate Jenkins with build and deployment tools
 + Create project in Jenkins. On Jenkin dashboard:
   + Click "New item"
   + Enter project name
@@ -62,10 +62,41 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   + On General Tab, enter project decriciption
   + Select "Save"
   
-# Intergarte Jenkins with GitHub
-+ In the project, select "Configure"
+## Integrate Jenkins with GitHub
++ In the created project, select "Configure"
 + Complete Source Code Manaagement definition:
  + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
    + For Private GitHub Repositories, Set up authentication by entering existing GitHub credentials (username, password or PA Tokens)
-  
+ + Select github branch from which to "clone" (master by default)
+ + "Save"
+
+## Integrate Jenkins with Maven
++ On Jenkin Dashboard, select "Manage Jenkins"
++ Select "Global Tools Configuration"
++ Select "Add Maven" and set name to match the preferred version of Maven
++ Save
+ 
++ In the created project, select "Configure"
++ Select "Build"
++ Select "Add Build Step"
++ Select "Invoke top-level Maven targets"
++ Set Maven Version 
++ Set Goal for build --> clean package
++ save
++ Build Now...
     
+## Integrate Jenkins with SonaQube
+#NB: SonaQube server must be running and SonaQube Service must be running
+#run the following on the SonaQube server CLI
+```sh
+sudo hostname -i | telnet 9000
+```
+Go to project repository in GitHub
+Open the project file pom.xml
+Scroll to "Properties" tag
+  Update URL with the current SonaQube server ==> http:public/privateIP:9000
+  Update login username and password and use the same for setting up authentication in Jenkins
+  
+
+
+
