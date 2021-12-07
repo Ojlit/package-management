@@ -150,12 +150,8 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 + save
 
 5. Confirm required ports are open in Nexus server to allow traffic from Jenkins server.
-           
 
-
-
-
-
++ Build Now...   
 
 
 ## Integrate Jenkins with Tomcat
