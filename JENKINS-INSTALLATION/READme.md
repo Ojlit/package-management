@@ -55,7 +55,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 + Create First Admin User
 
 # Integrate Jenkins with build and deployment tools
-+ Create project in Jenkins. On Jenkin dashboard:
++ Create project in Jenkins. On Jenkins dashboard:
   + Click "New item"
   + Enter project name
   + Select Freestyle or Pipeline and click "OK"
@@ -63,6 +63,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   + Select "Save"
   
 ## Integrate Jenkins with GitHub
++ Go to JEnkins-UI
 + In the created project, select "Configure"
 + Complete Source Code Manaagement definition:
  + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
@@ -71,7 +72,8 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
  + "Save"
 
 ## Integrate Jenkins with Maven
-+ On Jenkin Dashboard, select "Manage Jenkins"
++ Go to Jenkins-UI
++ On the Dashboard, select "Manage Jenkins"
 + Select "Global Tools Configuration"
 + Select "Add Maven" and set name to match the preferred version of Maven
 + Save
@@ -86,17 +88,73 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 + Build Now...
     
 ## Integrate Jenkins with SonaQube
-#NB: SonaQube server must be running and SonaQube Service must be running
-#run the following on the SonaQube server CLI
++ NB: SonaQube server must be running and SonaQube Service must be running
++ Open required ports (9000) in SonarQube server firewall or SG to allow traffic from Jenkins server
++ Run the following on the SonaQube server CLI
 ```sh
 sudo hostname -i | telnet 9000
 ```
-Go to project repository in GitHub
-Open the project file pom.xml
-Scroll to "Properties" tag
-  Update URL with the current SonaQube server ==> http:public/privateIP:9000
-  Update login username and password and use the same for setting up authentication in Jenkins
-  
++ Go to project repository in GitHub
++ Open the project file pom.xml
++ Scroll to "Properties" tag
+  + Update URL with the current SonaQube server ==> http:public/privateIP:9000
+  + Update login username and password to be same as that used for Sonaube-UI
++ Commit the changes.
+
++ Go to Jenkins-UI 
++ Select "Configure"
++ Select "Build"
++ Select "Add Build Step"
++ Select "Invoke top-level Maven targets"
++ Set Maven Version 
++ Set Goal for build --> sonar:sonar
++ save
++ Build Now...
+
+## Integrate Jenkins with Nexus
+1. Create repos in Nexus-UI to upload artifacts
++ Go to Nexus-UI
++ Create repos (snapshot and release) in nexus-UI to upload artifacts
+
+2. Modify "distributionManagement" tag in pom.xml
++ Go to project repository in GitHub
++ Open the project file pom.xml
++ Modify 'distributionManagement' tag with nexus repos details in pom.xml
++ Commit changes
+
+3. Authenticate Maven/Jenkins in Nexus server by Modifying Settings.xml file:
++ Go to Jenkins CLI
++ Access Maven installed within Jenkins:
+
+``` sh
+cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
+```
++ Search for "servers" tag
++ Just before the closing of servers tag, insert the following:
++ <server>
+     <id>nexus</id>
+     <username>admin</username>
+     <password>admin@123</password>
+   </server> 
+   
+4. Set Default Goal in Jenkins-UI
++ Go to Jenkins-UI 
++ Select "Configure"
++ Select "Build"
++ Select "Add Build Step"
++ Select "Invoke top-level Maven targets"
++ Set Maven Version 
++ Set Goal for build --> deploy
++ save
+
+5. Confirm required ports are open in Nexus server to allow traffic from Jenkins server.
+           
 
 
 
+
+
+
+
+## Integrate Jenkins with Tomcat
++ Go to Jenkins-UI
