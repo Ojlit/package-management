@@ -131,12 +131,14 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 ```
 + Search for "servers" tag
 + Just before the closing of servers tag, insert the following:
-+ <server>
+
+``` sh
+<server>
      <id>nexus</id>
      <username>admin</username>
      <password>admin@123</password>
    </server> 
-   
+ ```
 4. Set Default Goal in Jenkins-UI
 + Go to Jenkins-UI 
 + Select "Configure"
