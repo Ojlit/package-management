@@ -155,4 +155,32 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 
 
 ## Integrate Jenkins with Tomcat
-+ Go to Jenkins-UI
+
+1. Add a Tomcat user in /tomcat9/conf/tomcat-users.xml
+ + Go to Tomcat CLI
+ ```sh
+  sudo vi /opt/tomcat9/conf/tomcat-users.xml
+ ```
+ + add the following user and roles to the tomcat-users.xml file...before the closing tag
+ ```sh
+ <user username="Osazee" password="admin123" roles="manager-gui,admin-gui,manager-script"/>
+ <user username="class26" password="admin123" roles="manager-gui,admin-gui"/>
+ ```
+ 
+2. Install Plugins to communicate with Tomcat
+ + Go to Jenkins-UI
+ + Select "Manage Jenkins"
+ + Select "Manage Plugins"
+ + Select "Deploy to Container" under "Available" tab 
+ + Select "Install without restart"
+ + Select project/job
+ + Select "Configure"
+ + Select "Post-build Actions" tab
+ + Select "post-build action"
+ + Select "Deploy war/ear to a container"
+ + Set location of file to deploy by entering "target/*war"
+ + Select "Add Containers"
+ + Choose the version of Tomcat installed
+ + Add Tomcat credentials - Username and password set in step 1 above (must have role of manager-script)
+ + Add Tomcat URL htttp://publicIP:PortNumber
+ + Save
