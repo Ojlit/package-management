@@ -165,7 +165,18 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  ```sh
  <user username="Osazee" password="admin123" roles="manager-gui,admin-gui,manager-script"/>
  <user username="class26" password="admin123" roles="manager-gui,admin-gui"/>
- ```
+  ```
+2. Change Tomcat port number if required within:
+  ```sh
+  vi /opt/tomcat9/conf/server.xml
+  ```
+3. Enable application deployment in Tomcat i.e. allow external access to Tomcat-UI
+  ```sh
+  vi /opt/tomcat9/webapps/manager/META-INF/context.xml
+  ```
+  + comment on "Valve className" tag
+
+  + Go to Tomcat UI using publicIP:PortNumber using username and password from Step 1 above to view deployment status
  
 2. Install Plugins to communicate with Tomcat
  + Go to Jenkins-UI
@@ -175,15 +186,42 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Select "Install without restart"
  + Select project/job
  + Select "Configure"
- + Select "Post-build Actions" tab
- + Select "post-build action"
+ + Select "Post-Build Action" tab
+ + Select "Add post-build action" dropdown
  + Select "Deploy war/ear to a container"
  + Set location of file to deploy by entering "target/*war"
  + Select "Add Containers"
  + Choose the version of Tomcat installed
- + Add Tomcat credentials - Username and password set in step 1 above (must have role of manager-script)
+ + Add Tomcat credentials - Username and password set in Step 1 above (must have "manager-script" role => RBAC Role Based access Control)
  + Add Tomcat URL htttp://publicIP:PortNumber
  + Save
  + Build Now...
 
 + View deployed application using the contextpath "htttp://publicIP:PortNumber/artifactName"
+
+## Set up Email Notification
+1. Install and Configure Email Plugins
+ + Log into Jenkins server UI  = http://18.212.53.48:8080/
+ + Select "Manage Jenkins" 
+ + Select "Manage Plugins"
+ + Select "Available" or "Installed" tab to Install "Email Extension Plugin" 
+ + Select "Manage Jenkins"
+ + Select "Configure System"
+ + Select "Extended Email Notification"
+ + Fill in required info to complete configuration
+     + Set enterprise SMTP or use smtp.gmail.com 
+                        + set project email: td-project@gmail.com 
+                        + set project email password: admin@123
+                        + set email content using variables
+                        + set receipients: all Developers 
+     + save 
+     
+2. Configure Editable Email Notification
+ + Select project/job in Jenkin-UI
+ + Select "Configure"
+ + Select "Post-Build Action" tab
+ + Select "Add post-build action" dropdown
+ + Select "Editable Email Notification" from dropdown
+ + Fill in required info for outgoing, incoming email, attached logs, add triggers etc
+ + Save
+ 
