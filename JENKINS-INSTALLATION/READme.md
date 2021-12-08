@@ -210,10 +210,10 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Select "Extended Email Notification"
  + Fill in required info to complete configuration
      + Set enterprise SMTP or use smtp.gmail.com 
-                        + set project email: td-project@gmail.com 
-                        + set project email password: admin@123
-                        + set email content using variables
-                        + set receipients: all Developers 
+       + set project email: td-project@gmail.com 
+       + set project email password: admin@123
+       + set email content using variables
+       + set receipients: all Developers 
      + save 
      
 2. Configure Editable Email Notification
