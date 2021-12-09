@@ -217,7 +217,8 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
      + save 
      
 2. Configure Editable Email Notification
- + Select project/job in Jenkin-UI
+ + Go to Jenkins-UI
+ + Select project/job
  + Select "Configure"
  + Select "Post-Build Action" tab
  + Select "Add post-build action" dropdown
@@ -225,3 +226,35 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Fill in required info for outgoing, incoming email, attached logs, add triggers etc
  + Save
  
+## Automating build process (jobs) in Jenkins
+Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
+  + Build Now -- Botton on Jenkins UI -- This process is manual
+  + Trigger Builds Remotely -- Say from a bash shell script
+  + Build Periodically -- Entire CI/DC proceses are scheduled based on specific time interval using crontable. Usually do not relate to the application being developed. Suitable for database backup, server monitoring, installing updates, server patching to check if servers are running optimally, etc
+     + Go to Jenkins-UI
+     + Select project/job
+     + Select "Configure"
+     + Select "Build Triggers" tab
+     + Check "Build Periodically"
+     + Enter schedule in dialog box using definition from crontable 
+     + Save
+  + Poll SCM ---> Jenkins will query Github project repository at specific time interval and check for new commits/versions. Jenkins pull changes and trigger the entire CI/DC proceses if new commits/versions exist in GitHub (SCM)
+     + Configure Github Webhook as follows:Go to Jenkins-UI
+      + Select project/job
+      + Select "Configure"
+      + Select "Build Triggers" tab
+      + Check "Poll SCM"
+      + Enter schedule to define frequency of Jenkins query of GitHub in the dialog box using definition from crontable 
+      + Save
+  + Github-Webhook -- Github will push to changes to jenkins when a new branch created or new commits / version are made in GitHub. Entire CI/DC proceses is initiated by changes in the SCM
+     +  Configure Github Webhook as follows:
+      +  Go to SCM (GitHub)
+      +  Open project repository
+      +  Go to Settings
+      +  Select "Webhoocks" from settings options
+      +  Click "Add webhook"
+      +  Set Payload URL as: http://JenkinsIPAddress:portNumber/github-webhook/
+      +  Set Content type to "application/json"
+      +  Select "Just the push event" or any other applicable
+      +  Select "Add webhook"
+  + Build other projects -- The end of one job triggers the start of another
