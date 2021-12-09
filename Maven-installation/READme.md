@@ -47,3 +47,24 @@ source ~/.bashrc
 mvn -version
 ```
 
+## .#Step5) Optional - To Create a Maven Custom Repository
++ ls /opt/maven/conf
++ cd conf/
++ sudo vi settings.xml 
++ scroll down to <localRepository> tag
++ Add <localRepository>/rootdirectoryName/directoryName</localRepository> as a new line and remove comment
++ Return to project directory (cd)
++ mvn package
++ ls -l /tmp
++ ls -l ~/.m2/repository
++ mvn clean package
+   
+   
+## Maven Study Notes 
+### What kind of projects are you supporting?
++ We support java based projects and a few .NET projects
+   
++ MAVEN is an open source Java BASED Build  tool. It is open source implying that both software and the source code are freely available. You can download the source code and develop on the existing features
+          
+   
+   
