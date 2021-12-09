@@ -41,7 +41,7 @@ export M2_HOME=/opt/maven
 export PATH=$PATH:$M2_HOME/bin
 #
 ```
-## .#Step4) Refrsh the profile file and Verify if maven is running
+## .#Step4) Refresh the profile file and Verify if maven is running
 ```sh
 source ~/.bashrc
 mvn -version
