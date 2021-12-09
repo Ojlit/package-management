@@ -65,6 +65,17 @@ mvn -version
 + We support java based projects and a few .NET projects
    
 + MAVEN is an open source Java BASED Build  tool. It is open source implying that both software and the source code are freely available. You can download the source code and develop on the existing features
-          
+
++ maven: creates jar, war and ear packages
+  jar: Standalone Applications
+    ebay.jar
+    paypal.jar
+    rbc.jar 
+  war: 
+    boa.war
+    rbc.war
+  ear:
+    aa.ear 
+    boa.ear 
    
    
