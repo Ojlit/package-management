@@ -62,20 +62,54 @@ mvn -version
    
 ## Maven Study Notes 
 ### What kind of projects are you supporting?
-+ We support java based projects and a few .NET projects
-   
-+ MAVEN is an open source Java BASED Build  tool. It is open source implying that both software and the source code are freely available. You can download the source code and develop on the existing features
++ I support java based projects and a few .NET projects. These includes federated Enterprise micro-service applications with over 21 modules for a Banking client 
 
-+ maven: creates jar, war and ear packages
-  jar: Standalone Applications
-    ebay.jar
-    paypal.jar
-    rbc.jar 
-  war: 
-    boa.war
-    rbc.war
-  ear:
-    aa.ear 
-    boa.ear 
    
++ Maven is an open source Java BASED Build  tool. It is open source implying that both software and the source code are freely available. You can download the source code and develop on the existing features.
    
+### IQ : Explain the maven lifecycle??
+Maven has 3 lifecycles:  Clean, site and default
+   + Clean          (mvn clean) - deletes old builds
+   + Site/Swagger   (mvn site)  - creates java classes (byte code) in the JVM 
+   + Default  
+       + mvn validate: It will validate the project structure and resource files
+       + mvn compile:  It will compile all java classes and test cases
+       + mvn test:     It will run the unit test cases (JUNit)
+       + mvn package:  It will create packages in target directory (*.jar/*.war/*ear) app.war
+       + mvn install:  It will store the build artifacts in MAVEN LOCAL REPO default location: .m2/repository
+       + mvn deploy:   It will upload the build artifacts into maven-remote-repo, NEXUS
+   
+   + Maven uses plugins/dependencies in the build Process.It gets the plugins from repositories:
+       + Maven local repository   ~/.m2/repository = default 
+       + Maven remote repository - Nexus
+       + Maven central repository - Apache Maven
+   
+### IQ : What problem have you face in your project?
++ Maven taking longer than expected time to build - 
+   + Solution: By skipping the test goal with 
+   ```sh
+     mvn package -DskipTests 
+   ```
+     or
+   ```sh
+     mvn package -Dmaven.test. skip=true
+   ```
+
++ Maven-local-repo was accidentally deleted @ ~/.m2/repository
+  + Solution : We created a custom Maven-local-repo by adding the name and locatio of the new repo in the /conf/settings.xml file
+
+### IQ : Assuming that 699 Testcases passed and 1 fails, what can be done for  maven to still do a build? 
+   + mvn package -DskipTests
+   + mvn package -Dmaven.test. skip=true
+   
+### IQ : Explain the d/f b/w mvn package & install:
+ + mvn package creates artifacts(packages) in target and will be deleted if we run mvn clean 
+ + mvn install creates and install packages in target and MLR . Artifacts in MLR won't be deleted if we run mvn clean
+
+### IQ : How can a Specific module be built in maven-enterprise-applications?
+   ```sh
+   mvn  package -P profilename
+   ```
+### IQ : How can we trouble-shoot a fail build?
+ + Check the logs to understand the Errors 
+ + mvn -X package (BUILD in debugging mode)
