@@ -66,9 +66,9 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 + Go to JEnkins-UI
 + In the created project, select "Configure"
 + Complete Source Code Manaagement definition:
- + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
+   + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
    + For Private GitHub Repositories, Set up authentication by entering existing GitHub credentials (username, password or PA Tokens)
- + Select github branch from which to "clone" (master by default)
+   + Select github branch from which to "clone" (master by default)
  + "Save"
 
 ## Integrate Jenkins with Maven
