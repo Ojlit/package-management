@@ -230,7 +230,7 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Build Now -- Botton on Jenkins UI -- This process is manual
   + Trigger Builds Remotely -- Say from a bash shell script
-  + Build Periodically -- Entire CI/DC proceses are scheduled based on specific time interval using crontable. Usually do not relate to the application being developed. Suitable for database backup, server monitoring, installing updates, server patching to check if servers are running optimally, etc
+  + Build Periodically -- Entire CI/DC proceses are scheduled based on specific time interval/timer set using crontable. Usually do not relate to the application being developed. Suitable for database backup, server monitoring, installing updates, server patching to check if servers are running optimally, etc
      + Go to Jenkins-UI
      + Select project/job
      + Select "Configure"
@@ -238,7 +238,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
      + Check "Build Periodically"
      + Enter schedule in dialog box using definition from crontable 
      + Save
-  + Poll SCM ---> Jenkins will query Github project repository at specific time interval and check for new commits/versions. Jenkins pull changes and trigger the entire CI/DC proceses if new commits/versions exist in GitHub (SCM)
+  + Poll SCM ---> Jenkins will query Github project repository at specific time interval and check for new commits/versions. Jenkins pull changes and trigger the entire CI/DC proceses if new commits/versions exist in GitHub (SCM). Build is initiated based on timer/schedule and SCM changes
      + Configure Github Webhook as follows:Go to Jenkins-UI
       + Select project/job
       + Select "Configure"
@@ -258,3 +258,12 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
       +  Select "Just the push event" or any other applicable
       +  Select "Add webhook"
   + Build other projects -- The end of one job triggers the start of another
+
+
+
+## Updating Credentials in Jenkins
++ Go to Jenkins Dashboard
++ Select "Manage Jenkins"
++ Select "Manage Credentials"
++ Select the applicable tool for which credential update is required.
++ For GitHub, select change password and enter Personal Access Token (PAT) created in GitHub
