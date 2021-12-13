@@ -113,3 +113,4 @@ Maven has 3 lifecycles:  Clean, site and default
 ### IQ : How can we trouble-shoot a fail build?
  + Check the logs to understand the Errors 
  + mvn -X package (BUILD in debugging mode)
+    + if error, run "sudo yum update"
