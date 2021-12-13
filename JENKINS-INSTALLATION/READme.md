@@ -373,7 +373,7 @@ Application Monitoring ==>
    + Hypothesis driven development  requires telemetry = servers (cpu <70% and memory >75%)         
    + Proactive (not reactive) action
 
-+ Type of monitoring
+Type of monitoring
   - Usage
   - Availability
   - Performance
