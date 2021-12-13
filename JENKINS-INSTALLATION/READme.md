@@ -288,25 +288,25 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure ---> Post-Build Actions ---> Add Post-Build Actions ---> "Record JaCoCo coverage report" ---> Update Post-Build Actions
 
 ### Plugins in Jenkins
-• JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
-• Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
-• Deploy WebLogic ---> deploys applications in WebLogic servers
-• Maven Integration
-• Safe Restart  ---> would not intrupt when there are jobs running.  
-• Next Build Number
-• Build Name Setter
-• SSH Agent
-• Email Extension
-• SonarQube Scanner
-• Audit Trail Plugin ---> set up in JHD (/var/lib/jenkins/)
-• Schedule Build
-• Artifactory Plugin
-• Cloud Foundry
-• Blue Ocean
-• Publish Over SSH :   jenkins --> ansible --deployment
-• ThinBackup
-• Convert To Pipeline
-• Job import plugin --->  jenkins migration 
++ JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
++ Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
++ eploy WebLogic ---> deploys applications in WebLogic servers
++ Maven Integration
++ Safe Restart  ---> would not intrupt when there are jobs running.  
++ Next Build Number
++ Build Name Setter
++ SSH Agent
++ Email Extension
++ SonarQube Scanner
++ Audit Trail Plugin ---> set up in JHD (/var/lib/jenkins/)
++ Schedule Build
++ Artifactory Plugin
++ Cloud Foundry
++ Blue Ocean
++ Publish Over SSH :   jenkins --> ansible --deployment
++ ThinBackup
++ Convert To Pipeline
++ Job import plugin --->  jenkins migration 
 
 
 ### Jenkins Variables and Parameter
@@ -352,11 +352,11 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 
 ## RESTFUL API 
 APM ==> Application Performance Monitoring
-  • Monitoring and learning from 'live site'
+  + Monitoring and learning from 'live site'
     - Diagnostics and error reporting
     - usage = zelle / intertact = 30 millions 
     - Notifications on application performance
-  • Rules for application performance and availability
+  + Rules for application performance and availability
     - High availability
     - Automated scale up/down or out/in
 
