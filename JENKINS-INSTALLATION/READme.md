@@ -288,10 +288,8 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 node('master')
   {
    def mavenHome = tool name: 'maven3.6.3'   
-   /* Defining the maven Home and version. 
-   (def = defines functions in Groovy Script). 
-   Would apply to all stages below
-   */
+        /* Defining the maven Home and version. (def = defines functions in Groovy Script). Would apply to all stages below
+        */
   stage('1.git clone')
   {
   git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
