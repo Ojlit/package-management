@@ -226,7 +226,7 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Fill in required info for outgoing, incoming email, attached logs, add triggers etc
  + Save
  
-## Automating build process (jobs) in Jenkins
+## FreeStyle - Automating build process (jobs) in Jenkins
 Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Build Now -- Botton on Jenkins UI -- This process is manual
   + Trigger Builds Remotely -- Say from a bash shell script
@@ -258,6 +258,13 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
       +  Select "Just the push event" or any other applicable
       +  Select "Add webhook"
   + Build other projects -- The end of one job triggers the start of another
+
+
+## Pipeline: Automating build process (jobs) in Jenkins 
+### Scripted Pipeline - Jenkinsfile
+
+
+
 
 
 
@@ -370,7 +377,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
    ```
 + Changing default port on UBUNTU   
   ```sh
-      sudo vi /etc/default/jenkins
+     sudo vi /etc/default/jenkins
   ```  
   
 
