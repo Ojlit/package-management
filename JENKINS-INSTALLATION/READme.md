@@ -63,7 +63,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
   + Select "Save"
   
 ## Integrate Jenkins with GitHub
-+ Go to JEnkins-UI
++ Go to Jenkins-UI
 + In the created project, select "Configure"
 + Complete Source Code Manaagement definition:
    + Copy project URL from GitHub and past in Jenkins  SCM Reposirory URL
@@ -267,3 +267,24 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 + Select "Manage Credentials"
 + Select the applicable tool for which credential update is required.
 + For GitHub, select change password and enter Personal Access Token (PAT) created in GitHub
+
+
+
+## Other Configurations in Jenkins
++ Discard Old Build
++ Disable this project 
+    + when there is scheduled maintainance of servers 
+    + when database backup is scheduled
++ Delete workspace before build starts 
++ Add timestamps to the Console Output 
+    + run the following in the Jenkins CLI:
+    ```sh
+    sudo timedatectl set-timezone America/New_York
+    ```
+### Plugin Management
++ Plugins extends the functionality of Jenkins server
++ Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure System  or Project then Configure ---> etc
++ For JaCoCO Plugin:
+  + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure ---> Post-Build Actions ---> Add Post-Build Actions ---> "Record JaCoCo coverage report" ---> Update Post-Build Actions
+
+### Plugin Management
