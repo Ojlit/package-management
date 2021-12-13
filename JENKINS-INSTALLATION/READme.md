@@ -369,10 +369,9 @@ APM Tools ==>
     + Dynatrace
     + CloudWatch and SNS 
 
-Application Monitoring
-  • Hypothesis driven development  requires 
-      telemetry = servers (cpu <70% and memory >75%)         
-  • Proactive (not reactive) action
+Application Monitoring ==>
+   + Hypothesis driven development  requires telemetry = servers (cpu <70% and memory >75%)         
+   + Proactive (not reactive) action
 
 + Type of monitoring
   - Usage
