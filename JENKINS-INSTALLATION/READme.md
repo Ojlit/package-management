@@ -314,7 +314,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 
 
 ### Jenkins Variables and Parameter
-+ variables:
++ Variables:
   + boolean variables (True or False) ---> Jenkins_installed=true
   + intergers are numbers --->  port=80 
   + float (integer plus decimal) --->  price=100.50
@@ -324,6 +324,18 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 + Build with parameters  :
   + $Name 
   + $branchName
+  
+  + Create Project in Jenkins Dashboard
+  + Select Configure
+  + Under General Tab, Select "This project is parameterized"
+  + Select dropdown to choose parameter
+  + Select "Choice Parameter" -- (1)
+  + Enter "branchName" for Choice Parameter "Name"
+  + Enter master, dev, and stage in Choice Parameter "Choices" 
+  + Enter Description  - "This will dynamically allows selection of branch for build purposes"
+  + Select "String Parameter" --- (2)
+  + Enter "Name" and Default Value
+  + Enter Description - "Please Identify Yourself"
 
 
 ## Jenkins Home Directory (JHD)
@@ -336,6 +348,21 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 + users --> users.xml 
 
 
+
+## How to troubleshoot issues with Jenkins server
+  + To trace issues within the jenkins server:
+  ```sh 
+  cat  /var/log/jenkins/jenkins.log 
+  ```
+  
+  + when switching user to Jenkins and "sudo su -jenkins" doesn't work
+  ```sh
+  sudo vi /etc/passwd 
+  ```
+  + update the shell for Jenkins user from bin/false to bin/bash
+  
+    
+    
 ## Jenkins Security
 The seurty of Jenkins can be enhanced or maintained through the following:
 
