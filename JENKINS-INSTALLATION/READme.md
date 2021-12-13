@@ -287,18 +287,22 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 
 node('master')
   {
-   def mavenHome = tool name: 'maven3.6.3'
+   def mavenHome = tool name: 'maven3.6.3'   
+   /* Defining the maven Home and version. 
+   (def = defines functions in Groovy Script). 
+   Would apply to all stages below
+   */
   stage('1.git clone')
   {
   git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
   }
   stage('2.maven-Build')
   { 
-    sh '${mavenHome}/bin/mvn clean package'
+    sh '${mavenHome}/bin/mvn clean package'  #using the absolute path for executing the mvn goal
   }
   stage('3.CodeQualityReport')
   {
-  sh '${mavenHome}/bin/mvn sonar:sonar'
+  sh '${mavenHome}/bin/mvn sonar:sonar'      #using the absolute path for executing the mvn goal
   }
  stage('4.UploadWarNexus')
         {
