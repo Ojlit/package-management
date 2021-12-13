@@ -352,25 +352,25 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 ## How to troubleshoot issues with Jenkins server
   + To trace issues within the jenkins server:
   ```sh 
-  cat  /var/log/jenkins/jenkins.log 
+       cat  /var/log/jenkins/jenkins.log 
   ```
   
   + When switching user to Jenkins and "sudo su -jenkins" doesn't work, run the following commands and update the shell for Jenkins user from bin/false to bin/bash
   ```sh
-  sudo vi /etc/passwd 
+       sudo vi /etc/passwd 
   ```
  
 + To verify the Linus distibution 
  ```sh
- hostnamectl
+      hostnamectl
  ```
 + Changing default port on RHEL or CentOS
    ```sh
-   sudo vi /etc/sysconfig/jenkins     
+     sudo vi /etc/sysconfig/jenkins     
    ```
 + Changing default port on UBUNTU   
   ```sh
-  sudo vi /etc/default/jenkins
+      sudo vi /etc/default/jenkins
   ```  
   
 
