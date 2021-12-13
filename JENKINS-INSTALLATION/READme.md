@@ -281,17 +281,21 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
     ```sh
     sudo timedatectl set-timezone America/New_York
     ```
+    
+    
 ### Plugin Management
 + Plugins extends the functionality of Jenkins server
 + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure System  or Project then Configure ---> etc
 + For JaCoCO Plugin:
   + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure ---> Post-Build Actions ---> Add Post-Build Actions ---> "Record JaCoCo coverage report" ---> Update Post-Build Actions
 
+
+
 ### Plugins in Jenkins
 + JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
 + Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
 + eploy WebLogic ---> deploys applications in WebLogic servers
-+ Maven Integration
++ Maven Integration (Maven Project)
 + Safe Restart  ---> would not intrupt when there are jobs running.  
 + Next Build Number
 + Build Name Setter
@@ -373,7 +377,7 @@ Application Monitoring ==>
    + Hypothesis driven development  requires telemetry = servers (cpu <70% and memory >75%)         
    + Proactive (not reactive) action
 
-Type of monitoring
+Types of monitoring ===>
   - Usage
   - Availability
   - Performance
