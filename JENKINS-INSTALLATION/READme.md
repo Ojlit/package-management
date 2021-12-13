@@ -351,14 +351,14 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 
 
 ## RESTFUL API 
-APM = Application Performance Monitoring
+APM ==> Application Performance Monitoring
   • Monitoring and learning from 'live site'
-  - Diagnostics and error reporting
-  - usage = zelle / intertact = 30 millions 
-  - Notifications on application performance
+    - Diagnostics and error reporting
+    - usage = zelle / intertact = 30 millions 
+    - Notifications on application performance
   • Rules for application performance and availability
-  - High availability
-  - Automated scale up/down or out/in
+    - High availability
+    - Automated scale up/down or out/in
 
 
 •APM Tools
@@ -379,10 +379,10 @@ Application Monitoring
       telemetry = servers (cpu <70% and memory >75%)         
   • Proactive (not reactive) action
 
-• Type of monitoring
-- Usage
-- Availability
-- Performance
-- Custom telemetry
++ Type of monitoring
+  - Usage
+  - Availability
+  - Performance
+  - Custom telemetry
 
       
