@@ -287,4 +287,50 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 + For JaCoCO Plugin:
   + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure ---> Post-Build Actions ---> Add Post-Build Actions ---> "Record JaCoCo coverage report" ---> Update Post-Build Actions
 
-### Plugin Management
+### Plugins in Jenkins
++ JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
+• Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
+
+• Deploy WebLogic
+     deploys applications in WebLogic servers
+
+• Maven Integration
+
+
+• Safe Restart
+    jobs are running 
+      sudo systemctl restart jenkins
+• Next Build Number
+• Build Name Setter
+
+• SSH Agent
+• Email Extension
+• SonarQube Scanner
+
+• Audit Trail Plugin
+    /var/lib/jenkins/
+        audit-trail.log-0  5MB 
+        audit-trail.log-1  5MB
+        audit-trail.log-2  5MB 
+        audit-trail.log-3 
+        audit-trail.log-5
+
+     NBC = 10 team members 
+        simon 
+        percy 
+        mercy 
+        florence
+
+• Schedule Build
+
+• Artifactory Plugin
+• Cloud Foundry
+• Blue Ocean
+• Publish Over SSH
+    jenkins --> ansible --deployment
+• ThinBackup
+
+• Convert To Pipeline
+
+• Job import plugin 
+    jenkins migration 
