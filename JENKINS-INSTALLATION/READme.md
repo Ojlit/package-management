@@ -361,13 +361,13 @@ APM ==> Application Performance Monitoring
     - Automated scale up/down or out/in
 
 
-•APM Tools
-    + APM tools allow you to target bottleneck swith your applications framework
-    + New Relic is the reigning market leader which lets you pinpoints precisely where and when bottlenecks are occurring
-    + AppDynamics is also a great tool, enabling you to monitor Java, .NET, PHP, and Nodejs applications
-    + Compuware APM & Boundary are enterprise-geared APM tools which give you a clear view of the user experience, offering metrics like data transactions performance and user requests
-    * Dynatrace
-    * CloudWatch and SNS 
+APM Tools ==> 
+ + APM tools allow you to target bottleneck swith your applications framework
+ + New Relic is the reigning market leader which lets you pinpoints precisely where and when bottlenecks are occurring
+ + AppDynamics is also a great tool, enabling you to monitor Java, .NET, PHP, and Nodejs applications
+ + Compuware APM & Boundary are enterprise-geared APM tools which give you a clear view of the user experience, offering metrics like data transactions performance and user requests
+    + Dynatrace
+    + CloudWatch and SNS 
 
 Application Monitoring
   • Hypothesis driven development  requires 
