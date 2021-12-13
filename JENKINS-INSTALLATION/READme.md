@@ -261,9 +261,60 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 
 
 ## Pipeline: Automating build process (jobs) in Jenkins 
++ Jenkins Pipelines Buils are either Scripted or Declarative:
+
+1. Scripted --> Groovy Script
+     - No Gui options
+     - ONLY SCRIPTS
+     
+2. Declarative:
+     - It uses some gui options
+     - Scripts
+
 ### Scripted Pipeline - Jenkinsfile
++ Jenkinsfile is a pipeline script written in a language called Groovy. Hence it is a Groovy Script.
++ Builds are done in a node. A node is a server. 
++ Jenkins has a master-slave architechture
++ Slaves are also called nodes and agents (slave/agent/node)
++ When creating the project, select "Pipeline" and complete the initial set-up
+   + General > Project Description 
+   + Select "Pipeline"
+   + 
++ Typical Groovy Script or Jenkinsfile is as follows:
 
 
+```sh
+
+node('master')
+  {
+   def mavenHome = tool name: 'maven3.6.3'
+  stage('1.git clone')
+  {
+  git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
+  }
+  stage('2.maven-Build')
+  { 
+    sh '${mavenHome}/bin/mvn clean package'
+  }
+  stage('3.CodeQualityReport')
+  {
+  sh '${mavenHome}/bin/mvn sonar:sonar'
+  }
+ stage('4.UploadWarNexus')
+        {
+        sh '${mavenHome}/bin/mvn clean deploy'
+        }
+ stage('5.DeployTomcat')
+        {
+        deploy adapters: [tomcat9(credentialsId: 'Tomcat_Credentials', path: '', url: 'http://3.85.28.18:7777/')], contextPath: null, war: '**/*.war'
+        }   
+  } 
+  
+  ```
+
++ Select "Pipeline Syntax" to generate the appropriate syntax for each stage define in a node.
+   + For Cloning Code, select "Git" in the "Sample Step" dropdown menu, enter the GitHub Repo URL and complete other required info. Generate the Pipeline Script and copy the output. Paste the copied output inside the curly bracket for the respective node stage
+   + 
 
 
 
