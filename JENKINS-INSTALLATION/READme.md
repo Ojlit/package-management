@@ -362,15 +362,10 @@ APM ==> Application Performance Monitoring
 
 
 •APM Tools
-    • APM tools allow you to target bottleneck swith your applications 
-      framework
-    • New Relic is the reigning market leader which lets you pinpoints 
-      precisely where and when bottlenecks are occurring
-    • AppDynamics is also a great tool, enabling you 
-      to monitor Java, .NET, PHP, and Nodejs applications
-    • Compuware APM & Boundary are enterprise-geared
-      AP M tools which give you a clear view of the user experience, 
-      offering metrics like data transactions performance and user requests
+    + APM tools allow you to target bottleneck swith your applications framework
+    + New Relic is the reigning market leader which lets you pinpoints precisely where and when bottlenecks are occurring
+    + AppDynamics is also a great tool, enabling you to monitor Java, .NET, PHP, and Nodejs applications
+    + Compuware APM & Boundary are enterprise-geared APM tools which give you a clear view of the user experience, offering metrics like data transactions performance and user requests
     * Dynatrace
     * CloudWatch and SNS 
 
