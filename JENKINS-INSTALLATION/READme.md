@@ -288,49 +288,101 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Jeknins Dashboard ---> Manage Plugins ---> Install Plugins ---> Configure ---> Post-Build Actions ---> Add Post-Build Actions ---> "Record JaCoCo coverage report" ---> Update Post-Build Actions
 
 ### Plugins in Jenkins
-+ JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
+• JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
 • Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
-
-• Deploy WebLogic
-     deploys applications in WebLogic servers
-
+• Deploy WebLogic ---> deploys applications in WebLogic servers
 • Maven Integration
-
-
-• Safe Restart
-    jobs are running 
-      sudo systemctl restart jenkins
+• Safe Restart  ---> would not intrupt when there are jobs running.  
 • Next Build Number
 • Build Name Setter
-
 • SSH Agent
 • Email Extension
 • SonarQube Scanner
-
-• Audit Trail Plugin
-    /var/lib/jenkins/
-        audit-trail.log-0  5MB 
-        audit-trail.log-1  5MB
-        audit-trail.log-2  5MB 
-        audit-trail.log-3 
-        audit-trail.log-5
-
-     NBC = 10 team members 
-        simon 
-        percy 
-        mercy 
-        florence
-
+• Audit Trail Plugin ---> set up in JHD (/var/lib/jenkins/)
 • Schedule Build
-
 • Artifactory Plugin
 • Cloud Foundry
 • Blue Ocean
-• Publish Over SSH
-    jenkins --> ansible --deployment
+• Publish Over SSH :   jenkins --> ansible --deployment
 • ThinBackup
-
 • Convert To Pipeline
+• Job import plugin --->  jenkins migration 
 
-• Job import plugin 
-    jenkins migration 
+
+### Jenkins Variables and Parameter
++ variables:
+  + boolean variables (True or False) ---> Jenkins_installed=true
+  + intergers are numbers --->  port=80 
+  + float (integer plus decimal) --->  price=100.50
+  + string variables -->   name='simon'
+  + list --->  team_numbers = ['simon','paul','john']
+
++ Build with parameters  :
+  + $Name 
+  + $branchName
+
+
+## Jenkins Home Directory (JHD)
+/var/lib/jenkins 
++ jobs --->  Config.xml/logs 
++ workspace 
++ tools -->     maven3.6.0 /  maven3.8.4
++ plugins 
++ secrets 
++ users --> users.xml 
+
+
+## Jenkins Security
+The seurty of Jenkins can be enhanced or maintained through the following:
+
+1. Changing jenkins default configurations (port number, JHD)
+    + JHD = /var/lib/jenkins 
+          + /app/jenkins 
+  
+2. Using a proxy (HAProxy) server to access jenkins 
+     + Team--> HAProxy/Nginx --> Jenkins 
+     
+3. Maintaining a strong password Policy 
+     + special characters, expiry date, case sensitive (lower, upper letters), numbers
+
+4. Role Based Access Control (RBAC) for User mgt:
+
+5. Using an LDAP server for user mgt 
+
+
+## RESTFUL API 
+APM = Application Performance Monitoring
+  • Monitoring and learning from 'live site'
+  - Diagnostics and error reporting
+  - usage = zelle / intertact = 30 millions 
+  - Notifications on application performance
+  • Rules for application performance and availability
+  - High availability
+  - Automated scale up/down or out/in
+
+
+•APM Tools
+    • APM tools allow you to target bottleneck swith your applications 
+      framework
+    • New Relic is the reigning market leader which lets you pinpoints 
+      precisely where and when bottlenecks are occurring
+    • AppDynamics is also a great tool, enabling you 
+      to monitor Java, .NET, PHP, and Nodejs applications
+    • Compuware APM & Boundary are enterprise-geared
+      AP M tools which give you a clear view of the user experience, 
+      offering metrics like data transactions performance and user requests
+    * Dynatrace
+    * CloudWatch and SNS 
+
+Application Monitoring
+  • Hypothesis driven development  requires 
+      telemetry = servers (cpu <70% and memory >75%)         
+  • Proactive (not reactive) action
+
+• Type of monitoring
+- Usage
+- Availability
+- Performance
+- Custom telemetry
+
+      
