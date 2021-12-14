@@ -261,8 +261,70 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Build other projects -- The end of one job triggers the start of another
 
 
+
 ## Pipeline - 
-+ Jenkins Pipelines Buils are either Scripted or Declarative:
+### Jenkins Master-Slave Architecture
++ Jenkins manages SDLC automation
++ Jenkins Master-Slave Architecture 
+   + provides flexiblity to continue CI/CD when the Jenkins server is unavailable
+   + makes it possible to execute multiple CI/CD jobs that are required to run concurrently
+   + distributes tasks between mutiple slave servers or executors
+   + in the master, it is required to install Jenkins, Java and an SSH Agent Plugin
+   + only Java is required in the slave servers to establish communication with the master 
+   + cummunication between master and slave is established using TCP/IP 
+   + the master and slaves are executors. Hence, at any time, executors = > 2
+   + the slaves are referred to as Unix agent
+   + TCP - Transfer Control Protocol, a secured protocol is preferreed to UDP - User Datagram Protocol) 
+   + TCP => Encrypted data | Secured | 3way handshake   (e.g. https, ssh, scp, rdp)
+   + UDP => Clear Text | unsecured | single directional (e.g. http)
++ To install a Jenkins slave, 
+   + launch an ec2 instance (t2-micro is ok) and install Java using AWS "User data"
+   + "User data" is used to install packages while creating a server (vm or ec2)
+   + copy and paste the following in "User data" AWS Step 3: Configure Instance Details
+    
+    ``` sh
+          sudo hostname slave
+          sudo su - ec2-user
+          sudo yum -y install unzip wget tree git
+          sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+          sudo yum install jdk-8u131-linux-x64.rpm -y
+   ```
+   + conitnue to the end of ec2/vm launching steps
+
++ To Add and Configure slave(s) server(s) in Jenkins-UI
+  + Jenkins-UI Dashboard
+  + Select "Manage Jenkins"
+  + Select "Manage Nodes and Clouds"
+  + Select "New Node" (to Install sshagent plugin)
+  + Add Node Name
+  + Check to select "Permanent Agent"...OK
+  + Add Desription
+  + Add Number of executors
+  + Add Remote root directory => location within slave server (/home/ec2-user/node1)
+  + Under Launch method, Select "Launch agents via SSH"
+  + Enter the public/private IP of the slave
+  + Configure credentials
+  + Add credentials 
+  + For "Kind", Select "SSH Username with private key"
+  + Enter Username (ec2-user)
+  + Select Enter Private Key directly
+  + Copy and paste CI/CD .pem key in dialogue box
+  + Add
+  + Select "Manually trusted key Verification Strategy" for Host Key Verification Strategy
+  + Save
+  + 
+
+
+
+
+
+
+
+
+
+
+### Jenkins Scripted and Declarative Pipeline
++ Jenkins Pipelines Builds are either Scripted or Declarative:
 
 1. Scripted --> Groovy Script
      - No Gui options
@@ -272,15 +334,23 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
      - It uses some gui options
      - Scripts
 
-### Scripted Pipeline - Jenkinsfile
+### Scripted Pipeline - Jenkinsfile (Infrastructure as a Code - IaC)
 + Jenkinsfile is a pipeline script written in a language called Groovy. Hence it is a Groovy Script.
 + Builds are done in a node. A node is a server. 
 + Jenkins has a master-slave architechture
 + Slaves are also called nodes and agents (slave/agent/node)
 + When creating the project, select "Pipeline" and complete the initial set-up
    + General > Project Description 
+   + Select Advanced Project Options
+   + Under Pipeline Definition click the drop down to select "Pipeline Script" or "Pipeline Script from SCM"
    + Select "Pipeline"
+   + If "Pipeline Script from SCM" was selected:
+   + Define the SCM by selecting "Git" from the dopdown
+   + Copy and paste the applicable github project repository URL
+   + Add the credentials for github repository
+   + Script Path - Enter the name of the Jenkinsfile save/created in the SCM
    + Select "Pipeline Syntax to begin development of groovy script
+   + Save
 + To update the project/groovy script later, 
    + select the project
    + select "Configure"
@@ -296,28 +366,82 @@ node('master')                                     //ensure build and release is
         /* Defining the maven Home and version. ("def" = defines functions in Groovy Script). Would apply to all stages below
         */
   stage('1.git clone')
-  {
-  git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
-  }                                                 //from "Pipeline Syntax" for "Git"
+        {
+        git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
+        }                                               //from "Pipeline Syntax" for "Git"
   stage('2.maven-Build')
-  { 
-    sh '${mavenHome}/bin/mvn clean package'         //using the absolute path for executing the mvn goal
-  }
-  stage('3.CodeQualityReport')
-  {
-  sh '${mavenHome}/bin/mvn sonar:sonar'             //using the absolute path for executing the mvn goal
-  }
+        { 
+        sh '${mavenHome}/bin/mvn clean package'         //using the absolute path for executing the mvn goal
+        }
+ stage('3.CodeQualityReport')
+        {
+        sh '${mavenHome}/bin/mvn sonar:sonar'           //using the absolute path for executing the mvn goal
+        }
  stage('4.UploadWarNexus')
         {
-        sh '${mavenHome}/bin/mvn clean deploy'      //using the absolute path for executing the mvn goal
+        sh '${mavenHome}/bin/mvn clean deploy'          //using the absolute path for executing the mvn goal
         }
  stage('5.DeployTomcat')
         {
         deploy adapters: [tomcat9(credentialsId: 'Tomcat_Credentials', path: '', url: 'http://3.85.28.18:7777/')], contextPath: null, war: '**/*.war'
-        }                                           //from "Pipeline Syntax" for "Deploy to Container"
+        }                                           //from "Pipeline Syntax" for "Deploy to Container" using UDP
+        
+ stage('6.EmailN') 
+        {
+        emailtext body: '''Hello Everyone,
+        Build from Shaphothan Pipeline Project.
+        Osazee''', subject: 'Build Status', to: 'developers'
+        
+        }
+ 
   } 
   
   ```
+
+
+
+Another example of Scripted Pipeline:
+
+```sh
+
+//scripted pipeline
+node{
+ def MHD = tool name: "maven3.8.4"
+    stage('1.Initiation'){
+    sh "echo Start of td deployment"
+    }
+    stage('2.CloneCode'){
+    git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
+    }
+    stage('3.buildMaven'){
+    sh "${MHD}/bin/mvn package"
+    }
+    stage('4.CodeQuality'){
+    //sh "${MHD}/bin/mvn sonar:sonar"
+    }
+    stage('5.UploadArtifacts'){
+    //sh "${MHD}/bin/mvn deploy"
+    }
+    stage('6.Deploy2Stage'){
+    sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
+    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
+    }
+    }                                                                      //deploy using TCP
+
+    stage('7.Approval'){
+    timeout(time:5, unit:'DAYS'){
+ 			input message: 'Approval for production'
+    }
+    }
+    stage('8.deployToProd'){
+    sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
+    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/"
+    }                                                                     
+    
+    }                                                                    //deploy using TCP
+}
+
+```
 
 Prepare or update groovy script as follows:
 + For Code Clone from Git, 
@@ -341,9 +465,18 @@ Prepare or update groovy script as follows:
    + Enter the source of file to deploy ("target/*.war) and 
    + Select "Add Container" to Specify the Tomcate Version 
    + Add Tomcat credentials
-   + Add Tomcat URL (http://ipAddress:PortNumber
+   + Add Tomcat URL (http://ipAddress:PortNumber)
    + Generate the Pipeline Script and copy the output
    + Paste the copied output inside the curly bracket for the respective node stage
++ For Email Notification, 
+   + Select Pipeline Syntax  ==> 
+   + Select "Extended Email" in the "Sample Step" dropdown menu, 
+   + Enter or Add email recipients, Email Subject, Email Body
+   + Generate the Pipeline Script and copy the output
+   + Paste the copied output inside the curly bracket for the respective node stage
+
+   
+Select/Apply the appropriate Build Trigger
    
    
 
