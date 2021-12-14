@@ -542,18 +542,20 @@ stages {
      }
    }
    post {
-     always
-     success
-     failure
+     always  {//use email syntax to generate email notification to be sent always}
+     success {//use email syntax to generate email notification to be sent when ci/cd is successful}
+     failure {//use email syntax to generate email notification to be sent when ci/cd fails and not successful}
    }
    }
    
 ```
-+ agent can be  ==? any, none, jenkins master or slave
-+ tools refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
++ agent can be  ==> "any", "none", jenkins "master" or "slave"
++ tools ===> refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
 + Options lists the build triggers
 + Stages are the same as in Scripted Pipeline
-+ Post lists the actions to be taken after CI/CD...typically Email Notification...states whaen email notification should be sent
++ Post lists the actions to be taken after CI/CD...typically Email Notification...configure email notification for each post action scenerios
+   
+   
 
 ## Updating Credentials in Jenkins
 + Go to Jenkins Dashboard
