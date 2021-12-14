@@ -269,6 +269,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
    + provides flexiblity to continue CI/CD when the Jenkins server is unavailable
    + makes it possible to execute multiple CI/CD jobs that are required to run concurrently
    + distributes tasks between mutiple slave servers or executors
+   + Jenkins Executors are agent that permit Jenkins to run jobs in Jenkins Slaves
    + in the master, it is required to install Jenkins, Java and an SSH Agent Plugin
    + only Java is required in the slave servers to establish communication with the master 
    + cummunication between master and slave is established using TCP/IP 
@@ -317,10 +318,9 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Select "Manually trusted key Verification Strategy" for Host Key Verification Strategy
   + Save
  
+Restrict jobs to run on slave
 
-
-
-
+***{SSH into slave from Jenkins master CLI}****
 
 
 
@@ -484,6 +484,7 @@ Select/Apply the appropriate Build Trigger
    
    
 
+###Declarative Pipeline
 
 
 
