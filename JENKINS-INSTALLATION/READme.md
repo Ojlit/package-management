@@ -551,9 +551,10 @@ stages {
    }
    
 ```
-+ agent can be  ==> "any", "none", jenkins "master" or "slave"
-+ tools ===> refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
-+ Options lists the build triggers
++ Agent can be "any", "none", jenkins "master" or "slave"
++ Tools refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
++ Options directive is applied where there are nuances when adding an agent to the top level or a stage level
++ "Step" is the most fundamental part of a Pipeline. Steps tell Jenkins what to do and serve as the basic building block for both Declarative and Scripted Pipeline syntax
 + Stages are the same as in Scripted Pipeline
 + SSHagent for Tomcat  is a plugin for authentication and not a build agent like exit in the preceeding stages
 + Post lists the actions to be taken after CI/CD...typically Email Notification...configure email notification for each post action scenerios
