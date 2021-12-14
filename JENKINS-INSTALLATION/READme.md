@@ -284,13 +284,13 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
    + "User data" is used to install packages while creating a server (vm or ec2)
    + copy and paste the following in "User data" AWS Step 3: Configure Instance Details
     
-    ```sh
+```sh
           sudo hostname slave
           sudo su - ec2-user
           sudo yum -y install unzip wget tree git
           sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
           sudo yum install jdk-8u131-linux-x64.rpm -y
-   ```
+```
    
    
    + conitnue to the end of ec2/vm launching steps
