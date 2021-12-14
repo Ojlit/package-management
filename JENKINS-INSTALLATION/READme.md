@@ -500,48 +500,48 @@ tools {
    //JDK "openJDK"
    //Git "git31.1"
       }
-options {
+/*
+   options {
      triggers
       }
+   */
 stages {
   stage('1.CodeClone'){
-    steps{
-     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
-        {
-    git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
+   agent {(slave#, master, none)
+   steps{
+        git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
         }
       }
     }
   stage('2.MavenBuild'){
-      steps{
-     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
-        {
-     sh "mvn clean package"
+   agent {(slave#, master, none)
+   steps{
+          sh "mvn clean package"
         }
       }
     }
   stage('3.CodeQuality'){
-     steps{
-     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
-        {
-     sh "mvn sonar:sonar"
+   agent {(slave#, master, none)
+   steps{
+          sh "mvn sonar:sonar"
         }
       }
     }
   stage('4.uploadToNexus'){
+   agent {(slave1)
    steps{
-     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
-        {
-     sh "mvn deploy"
+          sh "mvn deploy"
         }
       }
     }
   stage('5.Deploy2Tomcat'){
+   agent {(slave1)
    steps{
     sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
     sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
     }      
      }
+   }
    }
    post {
      always  {//use email syntax to generate email notification to be sent always}
@@ -555,6 +555,7 @@ stages {
 + tools ===> refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
 + Options lists the build triggers
 + Stages are the same as in Scripted Pipeline
++ SSHagent for Tomcat  is a plugin for authentication and not a build agent like exit in the preceeding stages
 + Post lists the actions to be taken after CI/CD...typically Email Notification...configure email notification for each post action scenerios
    
    
@@ -691,7 +692,14 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 
 5. Using Jenkins LDAP server integration for user mgt 
 
-=========================================================================================================
+   
+   
+## Jenkins Shared Libraries
++ A common pipeline that can be referenced by multiple projects that have similar ci/cd structure or steps that intersects. 
++ Eliminates code repetition
++ It optimises resources by leveraging exisiting defined pipelines for executing multiple concurent project without having to develop individual pipelines for each project.
+
+==============================================================================================
 ## RESTFUL API 
 APM ==> Application Performance Monitoring
   + Monitoring and learning from 'live site'
