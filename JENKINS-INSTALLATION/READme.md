@@ -439,7 +439,7 @@ node{
     }
     stage('8.deployToProd'){
     sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
-    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/"
+    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app.war"
     }                                                                     
     
     }                                                                    //deploy using TCP
@@ -472,6 +472,8 @@ Prepare or update groovy script as follows:
    + Add Tomcat URL (http://ipAddress:PortNumber)
    + Generate the Pipeline Script and copy the output
    + Paste the copied output inside the curly bracket for the respective node stage
+   + NB: When using the scp to copy package to Tomcat, an sshagent is added to the groovy script to provide authentication into Tomcat server
+   + NB: When using the scp to copy package to Tomcat, go to Tomcat server CLI and change permissions recursively to the tomcat9 or webapps directory 
 + For Email Notification, 
    + Select Pipeline Syntax  ==> 
    + Select "Extended Email" in the "Sample Step" dropdown menu, 
@@ -484,7 +486,7 @@ Select/Apply the appropriate Build Trigger
    
    
 
-## Declarative Pipeline
+### Declarative Pipeline
 
 
 
