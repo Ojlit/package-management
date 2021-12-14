@@ -178,7 +178,7 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 
   + Go to Tomcat UI using publicIP:PortNumber using username and password from Step 1 above to view deployment status
  
-2. Install Plugins to communicate with Tomcat
+ 4. Install Plugins to communicate with Tomcat
  + Go to Jenkins-UI
  + Select "Manage Jenkins"
  + Select "Manage Plugins"
@@ -226,7 +226,8 @@ cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
  + Fill in required info for outgoing, incoming email, attached logs, add triggers etc
  + Save
  
-## FreeStyle - Automating build process (jobs) in Jenkins
+# Automating build process (jobs) in Jenkins
+## FreeStyle Project - 
 Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Build Now -- Botton on Jenkins UI -- This process is manual
   + Trigger Builds Remotely -- Say from a bash shell script
@@ -260,7 +261,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Build other projects -- The end of one job triggers the start of another
 
 
-## Pipeline: Automating build process (jobs) in Jenkins 
+## Pipeline - 
 + Jenkins Pipelines Buils are either Scripted or Declarative:
 
 1. Scripted --> Groovy Script
@@ -279,44 +280,72 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 + When creating the project, select "Pipeline" and complete the initial set-up
    + General > Project Description 
    + Select "Pipeline"
-   + 
+   + Select "Pipeline Syntax to begin development of groovy script
++ To update the project/groovy script later, 
+   + select the project
+   + select "Configure"
+   + Select "Pipeline"
 + Typical Groovy Script or Jenkinsfile is as follows:
 
 
 ```sh
 
-node('master')
+node('master')                                     //ensure build and release is taking place in the right slave/node/agent
   {
    def mavenHome = tool name: 'maven3.6.3'   
-        /* Defining the maven Home and version. (def = defines functions in Groovy Script). Would apply to all stages below
+        /* Defining the maven Home and version. ("def" = defines functions in Groovy Script). Would apply to all stages below
         */
   stage('1.git clone')
   {
   git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
-  }
+  }                                                 //from "Pipeline Syntax" for "Git"
   stage('2.maven-Build')
   { 
-    sh '${mavenHome}/bin/mvn clean package'  #using the absolute path for executing the mvn goal
+    sh '${mavenHome}/bin/mvn clean package'         //using the absolute path for executing the mvn goal
   }
   stage('3.CodeQualityReport')
   {
-  sh '${mavenHome}/bin/mvn sonar:sonar'      #using the absolute path for executing the mvn goal
+  sh '${mavenHome}/bin/mvn sonar:sonar'             //using the absolute path for executing the mvn goal
   }
  stage('4.UploadWarNexus')
         {
-        sh '${mavenHome}/bin/mvn clean deploy'
+        sh '${mavenHome}/bin/mvn clean deploy'      //using the absolute path for executing the mvn goal
         }
  stage('5.DeployTomcat')
         {
         deploy adapters: [tomcat9(credentialsId: 'Tomcat_Credentials', path: '', url: 'http://3.85.28.18:7777/')], contextPath: null, war: '**/*.war'
-        }   
+        }                                           //from "Pipeline Syntax" for "Deploy to Container"
   } 
   
   ```
 
-+ Select "Pipeline Syntax" to generate the appropriate syntax for each stage define in a node.
-   + For Cloning Code, select "Git" in the "Sample Step" dropdown menu, enter the GitHub Repo URL and complete other required info. Generate the Pipeline Script and copy the output. Paste the copied output inside the curly bracket for the respective node stage
-   + 
+Prepare or update groovy script as follows:
++ For Code Clone from Git, 
+    + Select Pipeline Syntax  ==> 
+    + Select "Git" in the "Sample Step" dropdown menu, 
+    + Enter the GitHub Repo URL and complete other required info. 
+    + Generate the Pipeline Script and copy the output. 
+    + Paste the copied output inside the curly bracket for the respective node stage
++ For Build using maven, 
+    + Write script command to execute "mvn clean package" as an absolute path for executing the mvn goal. 
+    + The function for maven home directory and the version for build must be defined before the first stage action
++ For Code Quality using SonaQube, 
+    + Write script command to execute "mvn sonar:sonar" as an absolute path for executing the mvn goal. 
+    + NB: SonarQube server details must be configured in the pom.xml file within the <properties> tag
++ For Artifact Upload in Nexus, 
+    + Write script commaand to execute "mvn sonar:sonar" as an absolute path for executing the mvn goal. 
+    + NB: Nexus server details must be configured in the pom.xml file within the <distribution management> tag
++ For Deploying to Tomcat, 
+   + Select Pipeline Syntax  ==> 
+   + Select "Deploy to a Container" in the "Sample Step" dropdown menu, 
+   + Enter the source of file to deploy ("target/*.war) and 
+   + Select "Add Container" to Specify the Tomcate Version 
+   + Add Tomcat credentials
+   + Add Tomcat URL (http://ipAddress:PortNumber
+   + Generate the Pipeline Script and copy the output
+   + Paste the copied output inside the curly bracket for the respective node stage
+   
+   
 
 
 
