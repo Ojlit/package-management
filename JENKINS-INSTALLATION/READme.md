@@ -501,10 +501,11 @@ tools {
    //Git "git31.1"
       }
 /*
-   options {
-     triggers
-      }
+options {}
    */
+triggers {
+   pollSCM'*****'
+   }
 stages {
   stage('1.CodeClone'){
    agent {slave#, master, none, docker...and enter version}
@@ -550,6 +551,7 @@ stages {
 + Tools refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
 + Options directive is applied where there are nuances when adding an agent to the top level or a stage level
 + "Step" is the most fundamental part of a Pipeline. Steps tell Jenkins what to do and serve as the basic building block for both Declarative and Scripted Pipeline syntax
++ Triggers - Use Declarative Directive Generator to select the appropraite build trigger. Then copy and paste the generated syntax
 + Stages are the same as in Scripted Pipeline
 + SSHagent for Tomcat  is a plugin for authentication and not a build agent like exit in the preceeding stages
 + Post lists the actions to be taken after CI/CD...typically Email Notification...configure email notification for each post action scenerios
