@@ -265,7 +265,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 ## Pipeline - 
 ### Jenkins Master-Slave Architecture
 + Jenkins manages SDLC automation
-+ Jenkins Master-Slave Architecture 
++ Jenkins Master-Slave Architecture:-
    + provides flexiblity to continue CI/CD when the Jenkins server is unavailable
    + makes it possible to execute multiple CI/CD jobs that are required to run concurrently
    + distributes tasks between mutiple slave servers or executors
@@ -277,7 +277,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
    + TCP - Transfer Control Protocol, a secured protocol is preferreed to UDP - User Datagram Protocol) 
    + TCP => Encrypted data | Secured | 3way handshake   (e.g. https, ssh, scp, rdp)
    + UDP => Clear Text | unsecured | single directional (e.g. http)
-+ To install a Jenkins slave, 
+#### To install a Jenkins slave, 
    + launch an ec2 instance (t2-micro is ok) and install Java using AWS "User data"
    + "User data" is used to install packages while creating a server (vm or ec2)
    + copy and paste the following in "User data" AWS Step 3: Configure Instance Details
@@ -291,7 +291,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
    ```
    + conitnue to the end of ec2/vm launching steps
 
-+ To Add and Configure slave(s) server(s) in Jenkins-UI
+#### To Add and Configure slave(s) server(s) in Jenkins-UI
   + Jenkins-UI Dashboard
   + Select "Manage Jenkins"
   + Select "Manage Nodes and Clouds"
@@ -312,7 +312,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
   + Add
   + Select "Manually trusted key Verification Strategy" for Host Key Verification Strategy
   + Save
-  + 
+ 
 
 
 
