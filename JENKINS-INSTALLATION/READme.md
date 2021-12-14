@@ -320,7 +320,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
  
 Restrict jobs to run on slave
 
-***{SSH into slave from Jenkins master CLI}****
+***{SSH into slave from Jenkins master CLI}***
 
 
 
@@ -487,7 +487,21 @@ Select/Apply the appropriate Build Trigger
    
 
 ### Declarative Pipeline
-
+Typical declarative pipeline format:
+```sh 
+   pipeline {
+   agent
+   tools
+   options
+   stages
+   post {
+     always
+     success
+     failure
+   }
+   }
+   
+```
 
 
 ## Updating Credentials in Jenkins
