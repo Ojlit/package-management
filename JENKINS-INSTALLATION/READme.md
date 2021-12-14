@@ -487,13 +487,60 @@ Select/Apply the appropriate Build Trigger
    
 
 ### Declarative Pipeline
-Typical declarative pipeline format:
++ Declarative Pipeline also use the groovy script for set up. 
++ Declarative Pipeline is so powerful that you can use multiple agents in one pipeline script
+
 ```sh 
-   pipeline {
-   agent
-   tools
-   options
-   stages
+pipeline {
+agent any
+tools {
+   maven "maven3.8.4"
+   //JDK "openJDK"
+   //Git "git31.1"
+      }
+options {
+     triggers
+      }
+stages {
+  stage('1.CodeClone'){
+    steps{
+     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
+        {
+    git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
+        }
+      }
+    }
+  stage('2.MavenBuild'){
+      steps{
+     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
+        {
+     sh "mvn clean package"
+        }
+      }
+    }
+  stage('3.CodeQuality'){
+     steps{
+     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
+        {
+     sh "mvn sonar:sonar"
+        }
+      }
+    }
+  stage('4.uploadToNexus'){
+   steps{
+     agent ([//enter agent name if different from from the agent defined above, i.e if "none" is specified for agent above])
+        {
+     sh "mvn deploy"
+        }
+      }
+    }
+  stage('5.Deploy2Tomcat'){
+   steps{
+    sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
+    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
+    }      
+     }
+   }
    post {
      always
      success
@@ -502,7 +549,11 @@ Typical declarative pipeline format:
    }
    
 ```
-
++ agent can be  ==? any, none, jenkins master or slave
++ tools refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
++ Options lists the build triggers
++ Stages are the same as in Scripted Pipeline
++ Post lists the actions to be taken after CI/CD...typically Email Notification...states whaen email notification should be sent
 
 ## Updating Credentials in Jenkins
 + Go to Jenkins Dashboard
