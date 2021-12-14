@@ -1,5 +1,5 @@
 ## Apache Tomcat Installation And Setup In AWS EC2 Redhat Instance.
-###Step 1. Prerequisite - Create Server
+### Step 1. Prerequisite - Create and Set Up Server
 + AWS Acccount.
 + Create Redhat EC2 T2.micro Instance.
 + Create Security Group and open Tomcat ports or Required ports.
@@ -7,7 +7,7 @@
 + Attach Security Group to EC2 Instance.
 + Install java openJDK 1.8+
 
-###Step 2. Install Java JDK 1.8+ & Tomcat version 9.0.55
+### Step 2. Install Java JDK 1.8+ & Tomcat version 9.0.55
 
 ``` sh
 #!/bin/bash
@@ -31,7 +31,7 @@ sudo starttomcat
 echo "end on tomcat installation"
 ```
 
-###Step3. Tomcat Server Configuration 
+### Step3. Tomcat Server Configuration 
 
 + find / -name server.xml context.xml
 + vim /opt/tomcat9/conf/server.xml
@@ -50,9 +50,21 @@ echo "end on tomcat installation"
 	
 	username YourName password=PassWord   roles=manager-gui
 
-###Step4. Deploy Jobs from Build Server (Maven) to Tomcat
+### Step4. Deploying Jobs from Build Server (Maven) to Tomcat
++ For standalone applications built in maven, deployment can only be done in maven using java -jar packageName.jar
++ To deploy standalone applications, Java JDK 1.7+ must be running
++ Tomcat will only deploy maven-web-applications (.war)
++ JBoss/WildFly will deploy both maven-web-applications (.war) and maven-enterprise-applications (.ear)
+
+#### Steps:
+ + Assume Maven Server is installed, and configured:
+ + Clone source code and build script from Git Repository
+ + Build Package in maven 
+ + Securely copy build artifcat to the webapps directory in Tomcat or another designated directory
+ + 
 
 
-###Step5. Security for Tomcat using Proxy
+
+### Step5. Security for Tomcat using Proxy
 
 	
