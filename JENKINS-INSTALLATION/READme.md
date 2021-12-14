@@ -507,40 +507,35 @@ tools {
    */
 stages {
   stage('1.CodeClone'){
-   agent {(slave#, master, none)
-   steps{
+   agent {slave#, master, none, docker...and enter version}
+   steps {
         git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
-        }
-      }
+       }
     }
   stage('2.MavenBuild'){
-   agent {(slave#, master, none)
-   steps{
+   agent {slave#, master, none, docker...and enter version}
+   steps {
           sh "mvn clean package"
         }
-      }
     }
   stage('3.CodeQuality'){
-   agent {(slave#, master, none)
-   steps{
+   agent {slave#, master, none, docker...and enter version}
+   steps {
           sh "mvn sonar:sonar"
-        }
-      }
+       }
     }
   stage('4.uploadToNexus'){
-   agent {(slave1)
-   steps{
+   agent {slave#, master, none, docker...and enter version}
+   steps {
           sh "mvn deploy"
-        }
-      }
+       }
     }
   stage('5.Deploy2Tomcat'){
-   agent {(slave1)
+   agent {slave#, master, none, docker...and enter version}
    steps{
     sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
     sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
-    }      
-     }
+    }
    }
    }
    post {
