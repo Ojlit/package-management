@@ -491,6 +491,8 @@ Select/Apply the appropriate Build Trigger
 + Declarative Pipeline is so powerful that you can use multiple agents in one pipeline script
 
 ```sh 
+   
+//Declarative Pipeline
 pipeline {
 agent any
 tools {
