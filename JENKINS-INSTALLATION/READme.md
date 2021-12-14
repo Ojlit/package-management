@@ -687,11 +687,11 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 3. Maintaining a strong password Policy 
      + special characters, expiry date, case sensitive (lower, upper letters), numbers
 
-4. Role Based Access Control (RBAC) for User mgt:
+4. Using Role Based Access Control (RBAC) and Project based security options for user mgt:
 
-5. Using an LDAP server for user mgt 
+5. Using Jenkins LDAP server integration for user mgt 
 
-
+=========================================================================================================
 ## RESTFUL API 
 APM ==> Application Performance Monitoring
   + Monitoring and learning from 'live site'
