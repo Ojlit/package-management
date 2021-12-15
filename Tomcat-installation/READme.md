@@ -229,7 +229,7 @@ server   landmarktechtechnologies.app2.com;
 
 + If one of the servers needs to be temporarily removed from the load-balancing rotation, it can be marked with the down parameter in order to preserve the current hashing of client IP addresses. Requests that were to be processed by this server are automatically sent to the next server in the group:
 
-+ upstream backend { server landmarktechnologies.app1.com; server landmarktechnologies.app2.com; server  landmarktechnologies.app3.com down;
+    + upstream backend { server landmarktechnologies.app1.com; server landmarktechnologies.app2.com; server  landmarktechnologies.app3.com down;
 }
 
 ### Server Weights:
