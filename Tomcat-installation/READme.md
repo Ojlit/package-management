@@ -44,7 +44,7 @@ ps -ef | grep tomcat
 + Select "Manager App"
 + Enable external access to Tomcat server 
    + vi /opt/tomcat9/webapps/manager/META-INF/context.xml
-   + comment on 
+   + comment on the following in the file
 ```sh
    <Valve className...> to remove restriction for external access
 ```
@@ -54,7 +54,7 @@ ps -ef | grep tomcat
    + advance to last line, before the closing tag for tomcat users
    + add the following: 
 ```sh
-	<user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-scipt"/>
+	<user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-script"/>
 	
 ```
    + add more users following the step above
