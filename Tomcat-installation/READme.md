@@ -14,7 +14,7 @@
 # TOMCAT.SH
 # Steps for Installing tomcat9 on rhel7&8
 # install Java JDK 1.8+ as a pre-requisit for tomcat to run.
-# https://github.com/LandmakTechnology/package-management/tree/main/Tomcat-installation
+
 cd /opt 
 sudo yum install tree git wget -y
 sudo yum install java-1.8.0-openjdk-devel -y
