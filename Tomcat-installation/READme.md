@@ -7,7 +7,7 @@
 + Attach Security Group to EC2 Instance.
 + Install java openJDK 1.8+
 
-### Step 2. Install Java JDK 1.8+ & Tomcat version 9.0.55
+### Step 2. Install Java JDK 1.8+ & Tomcat version 9.0.56
 
 ``` sh
 #!/bin/bash
