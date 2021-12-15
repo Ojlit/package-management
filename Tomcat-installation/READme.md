@@ -96,10 +96,10 @@ ps -ef | grep tomcat
    + scp war-file-name ec2-user@TomcatIP:/opt/tomcat9/webapps
 
 	
-***How are hotfixes or hot deployments managed in tomcat? ==> Reload
-*** How to improve tomcat server performance? ==> 
-	+ Avoid multiple deployments tomcat server performance.
-        + Increase the heap Size from 64MB to 256MB	
++ How are hotfixes or hot deployments managed in tomcat? ==> Reload
++ How to improve tomcat server performance? ==> 
+   + Avoid multiple deployments tomcat server performance.
+   + Increase the heap Size from 64MB to 256MB	
 
 
 ### Step5. Security for Tomcat using Proxy
