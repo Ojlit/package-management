@@ -104,7 +104,7 @@ ps -ef | grep tomcat
 
 	
 	
-### Step5. Security for Tomcat using Proxy
+## Security for Tomcat using Proxy - NGINX
 	
 + Launch Nginx VM webserver in AWS using t2-micro
 + 
