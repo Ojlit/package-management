@@ -208,7 +208,7 @@ Validate the nginx.conf by using below command TWICE
 
 ## Additional Study for Nginx
 
-###Choosing a Load-Balancing Method:
+### Choosing a Load-Balancing Method:
 
 + Round Robin - Requests are distributed evenly across the servers, with server weights taken into consideration. This method is used by default
 
