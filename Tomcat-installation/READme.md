@@ -65,8 +65,12 @@ ps -ef | grep tomcat
    + passwd ec2-user
 	
 + Enable PasswordAuthentication 
-   + sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
-   + or vi /etc/ssh/sshd_config and enable PasswordAuthentication
+```sh
+   sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
+
+   sudo systemctl restart sshd
+```
+   + alternatively vi /etc/ssh/sshd_config and enable PasswordAuthentication
    + set PasswordAuthentication to "yes"
    + sudo service sshd restart 
 	
