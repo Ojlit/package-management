@@ -210,20 +210,20 @@ Validate the nginx.conf by using below command TWICE
 
 ### Choosing a Load-Balancing Method:
 
-+ Round Robin - Requests are distributed evenly across the servers, with server weights taken into consideration. This method is used by default
+1. Round Robin - Requests are distributed evenly across the servers, with server weights taken into consideration. This method is used by default
 
-+ upstream backend { no load balancing method is specified for Round Robin server landmarktechtechnologies.app1.com;
+    + upstream backend { no load balancing method is specified for Round Robin server landmarktechtechnologies.app1.com;
 server   landmarktechtechnologies.app2.com;
 }
 
-+ Least Connections - A request is sent to the server with the least number of active connections, again with server weights taken into consideration:
+2.  Least Connections - A request is sent to the server with the least number of active connections, again with server weights taken into consideration:
 
-+ upstream backend { least_conn; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
+    + upstream backend { least_conn; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
 }
 
-+ IP Hash - The server to which a request is sent is determined from the client IP address. In this case, either the first three octets of the IPv4 address or the whole IPv6 address are used to calculate the hash value. The method guarantees that requests from the same address get to the same server unless it is not available.
+3.  IP Hash - The server to which a request is sent is determined from the client IP address. In this case, either the first three octets of the IPv4 address or the whole IPv6 address are used to calculate the hash value. The method guarantees that requests from the same address get to the same server unless it is not available.
 
-+ upstream backend { ip_hash; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
+    + upstream backend { ip_hash; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
 }
 
 
