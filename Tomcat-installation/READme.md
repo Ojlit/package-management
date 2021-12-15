@@ -54,7 +54,7 @@ ps -ef | grep tomcat
    + advance to last line, before the closing tag for tomcat users
    + add the following: 
 ```sh
-	<user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+<user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-script"/>
 	
 ```
    + add more users following the step above
@@ -70,7 +70,7 @@ ps -ef | grep tomcat
 
    sudo systemctl restart sshd
 ```
-   + alternatively vi /etc/ssh/sshd_config and enable PasswordAuthentication
+   + alternatively run "sudo vi /etc/ssh/sshd_config" and enable PasswordAuthentication
    + set PasswordAuthentication to "yes"
    + sudo service sshd restart 
 	
