@@ -203,69 +203,65 @@ Validate the nginx.conf by using below command TWICE
 	setsebool -P httpd_can_network_connect true
 ```
 + Access the nginx server on the browser wit the context path (http://ngixIP:portNumber/artifactName)
-	
+
++ NB: If there is a change in the distribution of the traffic to the servers, perhapse due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shwon above must be executed
 
 ## Additional Study for Nginx
 
-Choosing a Load-Balancing Method:
+###Choosing a Load-Balancing Method:
 
-Round Robin - Requests are distributed evenly across the servers, with server weights taken into consideration. This method is used by default
++ Round Robin - Requests are distributed evenly across the servers, with server weights taken into consideration. This method is used by default
 
-upstream backend {
-# no load balancing method is specified for Round Robin server landmarktechtechnologies.app1.com;
++ upstream backend { no load balancing method is specified for Round Robin server landmarktechtechnologies.app1.com;
 server   landmarktechtechnologies.app2.com;
 }
 
-Least Connections - A request is sent to the server with the least number of active connections, again with server weights taken into consideration:
++ Least Connections - A request is sent to the server with the least number of active connections, again with server weights taken into consideration:
 
-upstream backend { least_conn;
-server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
++ upstream backend { least_conn; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
 }
 
-IP Hash - The server to which a request is sent is determined from the client IP address. In this case, either the first three octets of the IPv4 address or the whole IPv6 address are used to calculate the hash value. The method guarantees that requests from the same address get to the same server unless it is not available.
++ IP Hash - The server to which a request is sent is determined from the client IP address. In this case, either the first three octets of the IPv4 address or the whole IPv6 address are used to calculate the hash value. The method guarantees that requests from the same address get to the same server unless it is not available.
 
-upstream backend { ip_hash;
-server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
++ upstream backend { ip_hash; server landmarktechnologies.app1.com; server landmarktechnologies.app2.com;
 }
 
 
-If one of the servers needs to be temporarily removed from the
-load-balancing rotation, it can be marked with the down parameter in order to preserve the current hashing of client IP addresses. Requests that were to be processed by this server are automatically sent to the next server in the group:
++ If one of the servers needs to be temporarily removed from the load-balancing rotation, it can be marked with the down parameter in order to preserve the current hashing of client IP addresses. Requests that were to be processed by this server are automatically sent to the next server in the group:
 
-upstream backend {
-server landmarktechnologies.app1.com; server landmarktechnologies.app2.com; server landmarktechnologies.app3.com down;
++ upstream backend { server landmarktechnologies.app1.com; server landmarktechnologies.app2.com; server  landmarktechnologies.app3.com down;
 }
 
-Server Weights:
-By default, NGINX distributes requests among the servers in the group according to their weights using the Round Robin method. The weight parameter to the server directive sets the weight of a server; the default is 1:
+### Server Weights:
++ By default, NGINX distributes requests among the servers in the group according to their weights using the Round Robin method. The weight parameter to the server directive sets the weight of a server; the default is 1:
 
-upstream backend {
++ upstream backend {
 server landmarktechnologies.app1.com weight=5; server landmarktechnologies.app2.com;
 server landmarktechnologies.app3.com backup;
 }
-In the example, landmarktechnologies.app1.com has weight 5; the other two servers have the default weight (1), but the one with domain name landmarkntechnologies.app3.com is marked as a backup server and does not receive requests unless both of the other servers are unavailable. With this configuration of weights, out of every 6 requests, 5 are sent to landmarktechnologies.app1.com and 1 to landmarktechnologies.app2.com.
++ In the example, landmarktechnologies.app1.com has weight 5; the other two servers have the default weight (1), but the one with domain name landmarkntechnologies.app3.com is marked as a backup server and does not receive requests unless both of the other servers are unavailable. With this configuration of weights, out of every 6 requests, 5 are sent to landmarktechnologies.app1.com and 1 to landmarktechnologies.app2.com.
 
-Tuning Your NGINX Configuration
+### Tuning Your NGINX Configuration
 
-The following are some NGINX directives that can impact performance. As stated above, we only discuss directives that are safe for you to adjust on your own. We recommend that you not change the settings of other directives without direction from the NGINX team.
++ The following are some NGINX directives that can impact performance. As stated above, we only discuss directives that are safe for you to adjust on your own. We recommend that you not change the settings of other directives without direction from the NGINX team.
 
-Worker Processes
+#### Worker Processes
 
-NGINX can run multiple worker processes, each capable of processing a large number of simultaneous connections. You can control the number of worker processes and how they handle connections with the following directives:
++ NGINX can run multiple worker processes, each capable of processing a large number of simultaneous connections. You can control the number of worker processes and how they handle connections with the following directives:
 
-worker_processes - The number of NGINX worker processes  (the default is 1). In most cases, running one worker process per CPU core works well, and we recommend setting this directive to auto to achieve that. There are times when you may want to increase this number, such as when the worker processes have to do a lot of disk 1/0.
-
-
-worker connections - The maximum number of connections that each worker process can handle simultaneously. The default is 512, but most systems have enough resources to support a larger number. The appropriate setting depends on the size of the server and the nature of the traffic, and can be discovered through testing.
++ worker_processes - The number of NGINX worker processes  (the default is 1). In most cases, running one worker process per CPU core works well, and we recommend setting this directive to auto to achieve that. There are times when you may want to increase this number, such as when the worker processes have to do a lot of disk 1/0.
 
 
-Keepalive Connections
++ worker connections - The maximum number of connections that each worker process can handle simultaneously. The default is 512, but most systems have enough resources to support a larger number. The appropriate setting depends on the size of the server and the nature of the traffic, and can be discovered through testing.
 
-Keepalive connections can have a major impact on performance by reducing the CPU and network overhead needed to open and close connections. NGINX terminates all client connections and creates separate and independent connections to the upstream servers. NGINX supports keepalives for both clients and upstream servers. The following directives relate to client keepalives:
 
-keepalive_requests - The number of requests a client can make over a single keepalive connection. The default is 100, but a much higher value can be especially useful for testing with a load-generation tool, which generally sends a large number of requests from a single client. keepalive_timeout - How long an idle keepalive connection remains open. The following directive relates to upstream keepalives:
+#### Keepalive Connections
 
-keepalive - The number of idle keepalive connections to an upstream server that remain open for each worker process. There is no default value.
++ Keepalive connections can have a major impact on performance by reducing the CPU and network overhead needed to open and close connections. NGINX terminates all client connections and creates separate and independent connections to the upstream servers. NGINX supports keepalives for both clients and upstream servers. The following directives relate to client keepalives:
+
++ keepalive_requests - The number of requests a client can make over a single keepalive connection. The default is 100, but a much higher value can be especially useful for testing with a load-generation tool, which generally sends a large number of requests from a single client. keepalive_timeout - How long an idle keepalive connection remains open. The following directive relates to upstream keepalives:
+
++ keepalive - The number of idle keepalive connections to an upstream server that remain open for each worker process. There is no default value.
 
 
 
