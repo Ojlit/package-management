@@ -49,7 +49,11 @@ ps -ef | grep tomcat
 + Add Tomcat users and Configure username and password
    + vi /opt/tomcat9/conf/tomcat-user.xml
    + advance to last line, before the closing tag for tomcat users
-   + add the following: <user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-scipt"/>
+   + add the following: 
+```sh
+	<user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-scipt"/>
+	
+```
    + add more users following the step above
    + Reattempt access to tomcat server on the browser using the credentials created in the tomcat-user.xml file
 	
