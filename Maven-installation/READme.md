@@ -2,7 +2,7 @@
 ## .#Step0 Apache Maven Installation And Setup In AWS EC2 Redhat Instance.
 ##### Prerequisite
 + AWS Acccount.
-+ Create Redhat EC2 T2.medium Instnace with 4GB of RAM.
++ Create Redhat EC2 T2.medium Instance with 4GB of RAM.
 + Create Security Group and open Required ports.
    + 22 ..etc
 + Attach Security Group to EC2 Instance.
