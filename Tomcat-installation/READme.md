@@ -102,6 +102,11 @@ ps -ef | grep tomcat
    + Increase the heap Size from 64MB to 256MB	
 ====================================================================
 
+	
+	
 ### Step5. Security for Tomcat using Proxy
+	
++ Launch Nginx VM webserver in AWS using t2-micro
++ 
 
 	
