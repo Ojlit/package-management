@@ -62,7 +62,7 @@ ps -ef | grep tomcat
 	
 + Assign Password to ec2-user or any other user
    + This is required for authentication when scping from maven
-   + passwd ec2-user
+   + sudo passwd ec2-user
 	
 + Enable PasswordAuthentication 
 ```sh
