@@ -158,7 +158,7 @@ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bkp
 
 ```
 + Create nginx cont file in default path and define proxy(reverse proxy) rules
-+ Use the original conf file path/name create a new configuration file: 
++ Using the original conf file path/name create a new configuration file: 
 	
 ```sh
 	vi /etc/nginx/nginx.conf
@@ -193,7 +193,7 @@ location / {
 }
 	
 ```
-Validate the nginx.conf by using below command TWICE
+Validate the nginx.conf by using below command 
 ```sh 	
   nginx -t
 ```
@@ -215,7 +215,7 @@ Validate the nginx.conf by using below command TWICE
 ```
 + Access the nginx server on the browser wit the context path (http://ngixIP:portNumber/artifactName)
 
-+ NB: If there is a change in the distribution of the traffic to the servers, perhapse due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shwon above must be executed
++ NB: If there is a change in the distribution of the traffic to the servers, perhaps, due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shwon above must be executed
 
 ## Nginx Notes
 
