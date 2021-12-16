@@ -139,7 +139,7 @@ sudo hostname nginx
 #install nginx as root user 
 sudu su -
 #install epel repo in redhat server to complement the nginx directory system
-dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest- 8.noarch.rpm
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 sudo yum install nginx -y
 #Enable the nginx service
 sudo systemctl enable nginx
@@ -149,7 +149,7 @@ sudo systemctl start nginx
 sudo systemctl status nginx
 ```
 	
-+ Access the Nginx webserver administrator
++ Access the Nginx administrator on the web brower
 + copy the path to the nginx configuration file
 
 ```sh
@@ -217,7 +217,7 @@ Validate the nginx.conf by using below command TWICE
 
 + NB: If there is a change in the distribution of the traffic to the servers, perhapse due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shwon above must be executed
 
-## Additional Study for Nginx
+## Nginx Notes
 
 ### Choosing a Load-Balancing Method:
 
