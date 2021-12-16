@@ -109,3 +109,8 @@ Maven has 3 lifecycles:  Clean, site and default
  + Check the logs to understand the Errors 
  + mvn -X package (BUILD in debugging mode)
     + if error, run "sudo yum update"
+
+   
+```sh
+   mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4
+```
