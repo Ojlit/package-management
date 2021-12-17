@@ -557,7 +557,51 @@ stages {
 + Post lists the actions to be taken after CI/CD...typically Email Notification...configure email notification for each post action scenerios
    
    
+## Jenkins Shared Libraries
++ A concept of having a common pipeline code in the version control system that can be used by any number of pipelines just by referencing it. 
++ Can be referenced by multiple projects that have similar ci/cd structure or steps that intersects. 
++ Eliminates code repetition
++ It optimises resources by leveraging exisiting defined pipelines for executing multiple concurent project without having to develop individual pipelines for each project.
++ Process Steps:
+   + Step 1 - Create Shared Library
+   + Step 2 - Configure Library
+   + Use library in pipeline script
+   
+### Configuring Jenkins Shared Libraries
 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 ## Updating Credentials in Jenkins
 + Go to Jenkins Dashboard
 + Select "Manage Jenkins"
@@ -591,7 +635,7 @@ stages {
 ### Plugins in Jenkins
 + JACOCO ---> Java Code Coverage, similar to Code Coverage quality gate in SonaQube
 + Deploy to container  --- > deploys applications in Tomcat/GlassFish/JBoss servers
-+ eploy WebLogic ---> deploys applications in WebLogic servers
++ Deploy WebLogic ---> deploys applications in WebLogic servers
 + Maven Integration (Maven Project)
 + Safe Restart  ---> would not intrupt when there are jobs running.  
 + Next Build Number
@@ -692,12 +736,9 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 
    
    
-## Jenkins Shared Libraries
-+ A common pipeline that can be referenced by multiple projects that have similar ci/cd structure or steps that intersects. 
-+ Eliminates code repetition
-+ It optimises resources by leveraging exisiting defined pipelines for executing multiple concurent project without having to develop individual pipelines for each project.
 
-==============================================================================================
+  
+=========================================================================================
 ## RESTFUL API 
 APM ==> Application Performance Monitoring
   + Monitoring and learning from 'live site'
