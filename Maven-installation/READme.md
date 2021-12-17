@@ -55,6 +55,13 @@ mvn -version
 + mvn clean package
    
    
+## Generating a Sample Web Application Commit (pom.xml and src)
+   
+```sh
+   mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4
+```
+   
+   
 ## Maven Study Notes 
 ### What kind of projects are you supporting?
 + I support java based projects and a few .NET projects. These includes federated Enterprise micro-service applications with over 21 modules for a Banking client 
@@ -111,6 +118,4 @@ Maven has 3 lifecycles:  Clean, site and default
     + if error, run "sudo yum update"
 
    
-```sh
-   mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4
-```
+
