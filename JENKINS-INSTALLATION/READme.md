@@ -816,13 +816,14 @@ npm = node package manager
 
 nodejs-APP   vs   java-app
 --------           -------
-+ npm =             maven           -->   Build
-+ package.json      pom.xml         -->   Build Script           
-+ npm install       mvn package     -->   Creating packages
-+ npm test          mvn test        -->   Run unit test cases 
-+ npm run sonar     mvn sonar:sonar -->   SonarQube CodeQualityReport
-+ npm publish       mvn deploy      -->   Uploading artifacts
-npm = node package manager 
++ npm **************mvn           -->   Build
++ package.json******pom.xml         -->   Build Script           
++ npm install*******mvn package     -->   Creating packages
++ npm test**********mvn test        -->   Run unit test cases 
++ npm run sonar*****mvn sonar:sonar -->   SonarQube CodeQualityReport
++ npm publish*******mvn deploy      -->   Uploading artifacts
+
+   npm = node package manager 
   src + bs + test cases 
   
  sudo yum install nodejs npm -y   
