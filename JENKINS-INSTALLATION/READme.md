@@ -563,39 +563,110 @@ stages {
 + Eliminates code repetition
 + It optimises resources by leveraging exisiting defined pipelines for executing multiple concurent project without having to develop individual pipelines for each project.
 + Process Steps:
-   + Step 1 - Create Shared Library
-   + Step 2 - Configure Library
-   + Use library in pipeline script
+   + Step 1 - Create Shared Library and Directory Structure
+   + Step 2 - Configure Shared Library
+   + Step 2 - Use library in pipeline script
    
+### Creating Shared Library and Directory Structure
++ Typical SCM directory structure to use Jenkins Shared Library
++ root 
+   + src       #Groovy source files 
+   + vars      #variable files to be referenced or called in the groovy pipeline script
+   + resources #resource files (external libraries only)
+   
+
 ### Configuring Jenkins Shared Libraries
++ Access Jenkins server UI Dashboard
++ Select "Manage Jenkins" 
++ Select "Configure Systems"
++ Scroll to locate "Global Pipeline Libraries"
++ Add preferred Library Name
++ Select Default Version/Branch
++ Check "Allow default version to be overridden"
++ Check "Include @Library changes in job recent changes"
++ Select Retrieval Method - "Modern SCM - recommended"
++ Select "Git" for Source Code Management
++ Paste the URL for the Jenkins Shared Library (the "vars" directory)
++ Add Git Credentials 
++ Save
+
+   
+### Using Jenkins Shared Libraries
++ Create a project on Jenkins-UI ("enter new item")
++ Select Pipeline
++ Select OK
++ Select "Pipeline Tab" in Configure to begin building pipeline
+  + NB: JenkinsFile begins with "@Library('Project/LibraryName') _"
++ Create Declarative Pipeline
++ Typical Jenkins Shared Library has the following content/function:
+
+```sh
+
+def call(String stageName){
+  
+  if ("${stageName}" == "Build")
+     {
+       sh "mvn clean package"
+     }
+  else if ("${stageName}" == "SonarQube Report")
+     {
+       sh "echo Running Code Quality Report analysis"
+       sh "mvn clean sonar:sonar"
+     }
+  else if ("${stageName}" == "Upload Into Nexus")
+     {
+       sh "mvn clean deploy"
+     }
+}
+
+```
+   
++ Typical Declarative Pipeline (Jenkins File) using Jenkins Shared Library
+```sh
+ @Library('LandmarkSS-sharedlibs') _
+//common.groovy is the file name containing the Jenkins Shared Library being referenced. "common" is used in the steps below to correspond to the filename of the referenced library.
+pipeline {
+agent any 
+tools {
+    maven "maven3.8.4"
+
+  }
+stages{
+stage('CheckoutCode'){
+  steps{
+    git 'https://github.com/LandmakTechnology/web-app'
+}
+}
+stage("Build"){ 
+  steps{
+    common("Build")
+}
+}
+
+stage("Execute SonarQube Report"){ 
+  steps{
+    common("SonarQube Report")
+}
+}
+stage("Upload Artifacts Into Nexus"){ 
+  steps{
+    common("Upload Into Nexus")
+}
+}
+//=========================
+}// Stages Close
+} // Pipeline Close
+   
+```
+   
 
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
+## IQ - What is your experience with using Jenkins
++ Start response as follows:
+   + Used Jenkins Shared Library in managing multiple pipeline projects
+   + Write appropriate Jenkins file to execute pipeline projects
+   + Because I typically support Java-based projects, which requires using Maven to do a build, maven for codeQuality, maven to upload to Nexus. So for all the common stages I have written Jenkins files to leverage Jenkins Shared Library in order to reduce or eliminate repetitive tasks, and optimize the entire continuous integration and continuous delivery process.
    
    
    
@@ -739,6 +810,33 @@ The seurty of Jenkins can be enhanced or maintained through the following:
 
   
 =========================================================================================
+## NODEJS PROJECTS
+   
+nodejs applications:  nodeJS Projects
+=======================================
+npm = node package manager 
+
+nodejs-APP   vs   java-app
+--------           -------
+npm =             maven   -->   Build
+package.json      pom.xml -->   Build Script           
+npm install       mvn package =  (creating packages)
+npm test          mvn test      =   run unit test cases 
+npm run sonar     mvn sonar:sonar =  SonarQube CodeQualityReport
+npm publish       mvn deploy       =  uploading artifacts
+npm = node package manager 
+  src + bs + test cases 
+
+ sudo yum install nodejs npm -y   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 ## RESTFUL API 
 APM ==> Application Performance Monitoring
   + Monitoring and learning from 'live site'
