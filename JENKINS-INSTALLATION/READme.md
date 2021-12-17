@@ -668,7 +668,8 @@ stage("Upload Artifacts Into Nexus"){
    + Write appropriate Jenkins file to execute pipeline projects
    + Because I typically support Java-based projects, which requires using Maven to do a build, maven for codeQuality, maven to upload to Nexus. So for all the common stages I have written Jenkins files to leverage Jenkins Shared Library in order to reduce or eliminate repetitive tasks, and optimize the entire continuous integration and continuous delivery process.
    
-   
+## IQ - What have you been doing in Landmark
++ I update, maintain, modify and customize Jenkins Pipeline Script and Shared Library Files
    
    
    
@@ -823,12 +824,88 @@ nodejs-APP   vs   java-app
 + npm run sonar*****mvn sonar:sonar*-->   SonarQube CodeQualityReport
 + npm publish*******mvn deploy******-->   Uploading artifacts
 
-   npm = node package manager 
-  src + bs + test cases 
+ npm = node package manager 
+  
   
  + Install nodejs and npm in Jenkins CLI 
 ```sh
    sudo yum install nodejs npm -y
+```
+   
+### Configure npm in Jenkins  
++ Jenkins UI Dashboard
++ Manaage Jenkins
++ Global Tool Configuration
++ Locate "NodeJS".  
+   + if NodeJS is not found, install NodeJS from "Manage Plugins" and try again
++ Select NodeJS Installation
++ Add NodeJS/Name
++ Save
+   
+### Configure SonaQube for NodeJS   
++ Locate the "sonar-project.js" file in the SCM  --> analogous to pom.xml in java
++ Edit file by 
+   + adding SonaQube server URL (IP address)
+   + adding SonaQube username and password (preferably token)
+   (Generate token in SonaQuabe by Administration>Security>Users>CreateToken)
+ 
+### Configure Nexus for NodeJS   
++ Locate the "package.json" file in the SCM  --> analogous to pom.xml in java
++ Edit file by 
+   + locating the "publishConfig" line
+   + adding Nexus' npm-hosted repository URL to the "registry" line
++ create a token for authentication in Nexus server using openssl base64 software
+   + run the follwowing command in the Jenkins CLI to encrypt the username and password 
+    ```sh
+   echo -n 'admin:admin123' | openssl base64
+   
+  ```
++ Locate the ".npmrc" file in the SCM
++ Copy the encrypted credentials generated on the CLI and past into the ".npmrc" file immediately following _auth
+   
+
+ ### Scripted Pipeline using NodeJS 
+
+```sh
+   
+   node{
+  stage('CodeCheckout'){
+    sh "echo running ebay nodeJS project" 
+    git 'https://github.com/LandmakTechnology/nodejs-application'
+  }
+  stage('UnitTest'){
+    //sh "npm test"
+  }
+  stage('Build'){
+    sh "echo creating build artifacts"
+    nodejs(nodeJSInstallationName: 'nodejs17') {
+        sh 'npm install'
+    }
+  }
+  stage('Quality'){
+    sh "echo CodeQualityReport"
+    nodejs(nodeJSInstallationName: 'nodejs17') {
+        sh 'npm run sonar'
+    }
+  }
+    stage('UploadArtifacts'){
+    sh "echo npm packages uploaded"
+    nodejs(nodeJSInstallationName: 'nodejs17') {
+        //sh 'npm publish'
+        // Jenkins nexus intergration 
+        // password = admin123  username = admin 
+        // echo -n 'admin:admin123' | openssl base64
+    }
+  }
+
+  stage('deployment'){
+    sh "echo Deploying applications"
+    nodejs(nodeJSInstallationName: 'nodejs17') {
+        sh 'npm start'
+    }
+  }
+}
+   
 ```
    
    
@@ -836,10 +913,7 @@ nodejs-APP   vs   java-app
    
    
    
-   
-   
-   
-## RESTFUL API 
+## RESTFUL API (Application Programming Interface)
 APM ==> Application Performance Monitoring
   + Monitoring and learning from 'live site'
     - Diagnostics and error reporting
