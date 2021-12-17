@@ -808,10 +808,8 @@ The seurty of Jenkins can be enhanced or maintained through the following:
    
    
 
-  
-=======================================
-NODEJS PROJECTS
-   
+--------           -------  
+
 nodejs applications:  nodeJS Projects
 =======================================
 npm = node package manager 
