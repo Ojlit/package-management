@@ -95,6 +95,7 @@ echo "end of nexus installation"
   + within maven project folder CLI 
   + locate the settings.xml file (conf/settings.xml)
   + sudo vi /opt/maven/conf/settings.xml
+  + define the nexus server credentials in the settings.xml file
   + copy and paste the following nexus server details to the server tag in the settings.xml file. Ensure included credentials for nexus are correct
 
   ```sh
@@ -105,4 +106,50 @@ echo "end of nexus installation"
     </server>
    ```
 
-+
+### Uploading Artifacts to Nexus "Releases" Repository
++ To change uploading to "Releases" from "Snapshot" repository
++ sudo vi pom.xml
++ locate the "version" tag below the "groupID" tag
+  + delete "SNAPSHOTS" and rename the version number
++ If required Select "Allow Redeploy" in Nexus Server UI repository settings
+
+
+### Configure Nexus Server as Proxy for Maven Central Repository
++ It's not secure to have maven download plugins and dependencies from the Maven Central Repository
++ To remove the potential vulnerability, Nexus server can be used as a proxy for the Maven Central Repository
++ Create repository in Nexus UI
+  + enter name of proxy repository
+  + select "Mixed" for version policy
+  + enter the URL of the Maven Central Repository being proxied as remote storage 
+  ```sh
+  https://repo.maven.apache.org/maven2/
+  
+  ```
++ Set up Pull configuration in Maven
+1. access the nexus proxy repo created
+2. copy the Nexus proxy repo URL
+3. within maven project folder CLI, locate the pom.xml file
+4. sudo vi pom.xml
+  + create a new tag named "repository" just before "dependencies" tag
+  + include/paste the URL of the created Nexus proxy repo
+  ```sh
+  <repository>
+    <id>nexus</id>
+      <name>Proxy Repo</name>
+        <url>http://54.89.142.136:8000/repository/td-remote-repo/</url>
+  </repository>
+  ```
+5. within maven project folder CLI, locate the settings.xml file (conf/settings.xml)
+6. sudo vi /opt/maven/conf/settings.xml
+  + locate the tag named "Mirror"
+  + paste the URL of the created Nexus proxy repo
+     ```sh
+     <mirror>
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <name>Proxy Repo</name>
+      <url>http://54.89.142.136:8000/repository/td-group-repo/</url>
+     </mirror>
+     ```
+  + If other proxies (Mirrors) exist within the the "Mirrors" tag, comment all lines
+  
