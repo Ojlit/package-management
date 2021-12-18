@@ -51,6 +51,8 @@ vi /opt/nexus/bin/nexus.rc
 ```
 
 ###  Configure Nexus to Run as a Service 
++ First create a symbolic link:
+
 ```sh
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
 
@@ -61,7 +63,7 @@ sudo systemctl status nexus
 echo "end of nexus installation"
 ```
 
-### Nexus directory structure:
+### Nexus directory structure
 + bin 
   + binary files. Most important is "nexus"
 + lib 
@@ -70,5 +72,37 @@ echo "end of nexus installation"
   + uploaded artifacts
 + etc (conf)
   + Configuration files  
-  + nexus-default.properties
-  + /opt/nexus/etc/nexus-default.properties  
+  + nexus-default.properties ==> to change PortNumber:
+  + sudo vi /opt/nexus/etc/nexus-default.properties 
+  + If PortNumber is changed, restart ssdh (sudo service nexus restart)
+
+
+### Configure Nexus Server on the UI
++ Access the Nexus server using the URL --> IP:PortNumber
++ Log in using the default credentials => userName:admin; PAssWd:admin123
++ Create Remote repositories:
+   + maven2-hosted-snapshot and 
+   + maven2-hosted-release repositories
+
+### Integrate Nexus with Maven
+#### Step 1 - Update Nexus Repositories in Build Script (pom.xml)
++ On the maven-CLI, vi into pom.xml file or open from the SCM
++ Locate the "distributionManagement" tag
++ Update the respective URL for SnapShot and Releases using the URL copied from Nexus Server UI
+
+#### Step 2 - Configure Maven Authentication to Access Nexus Server
++ Authenticate maven in Nexus server 
+  + within maven project folder CLI 
+  + locate the settings.xml file (conf/settings.xml)
+  + sudo vi /opt/maven/conf/settings.xml
+  + copy and paste the following nexus server details to the server tag in the settings.xml file. Ensure included credentials for nexus are correct
+
+  ```sh
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+   ```
+
++
