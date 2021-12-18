@@ -80,7 +80,7 @@ sh /opt/sonarqube/bin/linux-x86-64/sonar.sh status
 + Update username and password ot Token for the applicable user
 + If Token is used, 
   + token should be entered in the "sonar.login" line in place of username in the pom.xml file
-  + the "sonar.password" line should be commeneted or deleted
+  + the "sonar.password" line should be commented or deleted
 
 
 ## Creating SonarQube Quality Gate and Quality Profiles
