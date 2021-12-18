@@ -1,4 +1,4 @@
-## Nexus Installation And Setup In AWS EC2 Redhat Instance.
+## Nexus Installation And Setup In AWS EC2 Redhat Instance
 ##### Pre-requisite
 + AWS Acccount.
 + Create Redhat EC2 t2.medium Instance with 4GB RAM.
@@ -13,7 +13,7 @@
 # so create a new user called nexus and grant sudo access to manage nexus services as follows. 
 sudo hostname nexus
 sudo useradd nexus
-# Grand sudo access to nexus user
+# Grant sudo access to nexus user
 sudo echo "nexus ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/nexus
 sudo su - nexus
 ```
@@ -25,7 +25,7 @@ cd /opt
 sudo yum install wget git nano unzip -y
 sudo yum install java-11-openjdk-devel java-1.8.0-openjdk-devel -y
 ```
-### Download nexus software and extract it (unzip).
+### Download nexus software and extract it (unzip)
 ```sh
 sudo wget http://download.sonatype.com/nexus/3/nexus-3.15.2-01-unix.tar.gz 
 sudo tar -zxvf nexus-3.15.2-01-unix.tar.gz
@@ -60,3 +60,15 @@ sudo systemctl start nexus
 sudo systemctl status nexus
 echo "end of nexus installation"
 ```
+
+### Nexus directory structure:
++ bin 
+  + binary files. Most important is "nexus"
++ lib 
+  + jar and library files             
++ deploy  
+  + uploaded artifacts
++ etc (conf)
+  + Configuration files  
+  + nexus-default.properties
+  + /opt/nexus/etc/nexus-default.properties  
