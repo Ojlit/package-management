@@ -1,9 +1,3 @@
-#  **<span style="color:green">Landmark Technologies.</span>**
-### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
-### **Email: mylandmarktech@gmail.com**
-
-
-
 ## Nexus Installation And Setup In AWS EC2 Redhat Instance.
 ##### Pre-requisite
 + AWS Acccount.
@@ -13,7 +7,7 @@
 + Attach Security Group to EC2 Instance.
 + Install java openJDK 1.8+ for Nexus version 3.15
 
-## Create nexus user to manage the Nexus server
+### Create nexus user to manage the Nexus server
 ```sh
 #As a good security practice, Nexus is not advised to run nexus service as a root user, 
 # so create a new user called nexus and grant sudo access to manage nexus services as follows. 
@@ -39,7 +33,7 @@ sudo mv /opt/nexus-3.15.2-01 /opt/nexus
 sudo rm -rf nexus-3.15.2-01-unix.tar.gz
 ```
 
-## Grant permissions for nexus user to start and manage nexus service
+### Grant permissions for nexus user to start and manage nexus service
 ```sh
 # Change the owner and group permissions to /opt/nexus and /opt/sonatype-work directories.
 sudo chown -R nexus:nexus /opt/nexus
@@ -47,14 +41,16 @@ sudo chown -R nexus:nexus /opt/sonatype-work
 sudo chmod -R 775 /opt/nexus
 sudo chmod -R 775 /opt/sonatype-work
 ```
-##  Open /opt/nexus/bin/nexus.rc file and  uncomment run_as_user parameter and set as nexus user.
-## # change from #run_as_user="" to [ run_as_user="nexus" ]
+###  Set User to "Nexus"
++ Open /opt/nexus/bin/nexus.rc file
++ uncomment "run_as_user" parameter and set as nexus user. i.e.
++ Change from [ #run_as_user="" ] to [ run_as_user="nexus" ]
 
 ```sh
 vi /opt/nexus/bin/nexus.rc
 ```
 
-##  CONFIGURE NEXUS TO RUN AS A SERVICE 
+###  Configure Nexus to Run as a Service 
 ```sh
 sudo ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
 
