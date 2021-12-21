@@ -125,7 +125,7 @@ echo "end of nexus installation"
   https://repo.maven.apache.org/maven2/
   
   ```
-+ Set up Pull configuration in Maven
++ Set-up Pull configuration in Maven
 1. access the nexus proxy repo created
 2. copy the Nexus proxy repo URL
 3. within maven project folder CLI, locate the pom.xml file
@@ -139,7 +139,7 @@ echo "end of nexus installation"
         <url>http://54.89.142.136:8000/repository/td-remote-repo/</url>
   </repository>
   ```
-5. within maven project folder CLI, locate the settings.xml file (conf/settings.xml)
+5. within maven home directory CLI, locate the settings.xml file (conf/settings.xml)
 6. sudo vi /opt/maven/conf/settings.xml
   + locate the tag named "Mirror"
   + paste the URL of the created Nexus proxy repo
