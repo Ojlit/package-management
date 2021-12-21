@@ -68,8 +68,8 @@ sh /opt/sonarqube/bin/linux-x86-64/sonar.sh status
   + Navigate to Administration>Security>User
   + Create New User
   + Create Token in
-+ Locate the pom.xml file in the SCM
-+ vi into the pom.xml file
++ Locate the pom.xml file in the SCM OR
++ vi into the pom.xml file on the Maven CLI
 + Add or update the sonarqube url (IP:PN)
 + Update username and password ot Token for the applicable user
 + If Token is used, 
