@@ -122,7 +122,7 @@ sudo hostname -i | telnet 9000
 + Access Maven installed within Jenkins:
 
 ``` sh
-cd /home/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
+cd /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/settings.xml
 ```
 + Search for "servers" tag
 + Just before the closing of servers tag, insert the following:
@@ -289,7 +289,7 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 ```
    
    
-   + conitnue to the end of ec2/vm launching steps
+   + continue to the end of ec2/vm launching steps
 
 #### To Add and Configure slave(s) server(s) in Jenkins-UI
   + Jenkins-UI Dashboard
@@ -785,7 +785,7 @@ stage("Upload Artifacts Into Nexus"){
     
     
 ## Jenkins Security
-The seurty of Jenkins can be enhanced or maintained through the following:
+The security of Jenkins can be enhanced or maintained through the following:
 
 1. Changing jenkins default configurations (port number, JHD)
     + JHD = /var/lib/jenkins 
