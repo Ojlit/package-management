@@ -388,7 +388,7 @@ I thought to inform you of the progress we have made with deploying release 13 o
   
 
 ```
-* ^ NB: "sshagent" from pipeline syntax configures the authentication of Jenkins to access the deployment container (Tomcat) using the default Tomcat user
+* ^ NB: "sshagent" from pipeline syntax configures the authentication of Jenkins to access the deployment container (Tomcat) using the default Tomcat user (ec2-user)
 
 * ^ NB: "StrictHostKeyChecking=no" eliminates the need for manual dialogue when scp-ing into another server
 
