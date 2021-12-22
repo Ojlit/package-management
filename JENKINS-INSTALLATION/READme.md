@@ -390,8 +390,10 @@ Prepare or update groovy script as follows:
     + Generate the Pipeline Script and copy the output. 
     + Paste the copied output inside the curly bracket for the respective node stage
 + For Build using maven, 
+    + "Install" and Configure Maven on Jenkins UI - "Global Tool Configuration" 
+    + Set a "Name" for the Maven version installed on "Global Tool Configuration"  
     + Write script command to execute "mvn clean package" as an absolute path for executing the mvn goal. 
-    + The function for maven home directory and the version for build must be defined before the first stage action
+    + The function for maven home directory and the version for build must be defined before the first stage action by referencing the "Name" of the maven version defined in "Global Tool Configuration" 
 + For Code Quality using SonaQube, 
     + Write script command to execute "mvn sonar:sonar" as an absolute path for executing the mvn goal. 
     + NB: SonarQube server details must be configured in the pom.xml file within the "properties" tag
