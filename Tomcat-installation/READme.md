@@ -193,7 +193,7 @@ location / {
 }
 	
 ```
-Validate the nginx.conf by using below command 
+Validate the nginx.conf by using below command. MUST BE ROOT USER!
 ```sh 	
   nginx -t
 ```
@@ -215,7 +215,7 @@ Validate the nginx.conf by using below command
 ```
 + Access the nginx server on the browser wit the context path (http://ngixIP:portNumber/artifactName)
 
-+ NB: If there is a change in the distribution of the traffic to the servers, perhaps, due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shwon above must be executed
++ NB: If there is a change in the distribution of the traffic to the servers, perhaps, due to maintenance, upgrade or patching, the "Validate", "Reload" and "Restart" as shown above must be executed..AS A ROOT USER
 
 ## Nginx Notes
 
