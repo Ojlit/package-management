@@ -454,7 +454,7 @@ Prepare or update groovy script as follows:
     + The function for maven home directory and the version for build must be defined before the first stage action
 + For Code Quality using SonaQube, 
     + Write script command to execute "mvn sonar:sonar" as an absolute path for executing the mvn goal. 
-    + NB: SonarQube server details must be configured in the pom.xml file within the <properties> tag
+    + NB: SonarQube server details must be configured in the pom.xml file within the "properties" tag
 + For Artifact Upload in Nexus, 
     + Write script commaand to execute "mvn sonar:sonar" as an absolute path for executing the mvn goal. 
     + NB: Nexus server details must be configured in the pom.xml file within the <distribution management> tag
