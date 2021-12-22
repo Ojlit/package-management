@@ -144,6 +144,11 @@ echo "end of nexus installation"
   ```
 5. within maven home directory CLI, locate the settings.xml file (conf/settings.xml)
 6. sudo vi /opt/maven/conf/settings.xml
+7. if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
+   ```sh
+    /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
+    
+   ```
   + locate the tag named "Mirror"
   + paste the URL of the created Nexus proxy repo
      ```sh
