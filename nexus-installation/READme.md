@@ -121,10 +121,10 @@ echo "end of nexus installation"
   + enter name of proxy repository
   + select "Mixed" for version policy
   + enter the URL of the Maven Central Repository being proxied as remote storage 
-  ```sh
+```sh
   https://repo.maven.apache.org/maven2/
   
-  ```
+```
 + Set-up Pull configuration in Maven
 1. access the nexus proxy repo created
 2. copy the Nexus proxy repo URL
