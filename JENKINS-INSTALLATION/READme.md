@@ -299,86 +299,93 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 
 ```sh
 
-node('master')                                     //ensure build and release is taking place in the right slave/node/agent
-  {
-   def mavenHome = tool name: 'maven3.6.3'   
-        /* Defining the maven Home and version. ("def" = defines functions in Groovy Script). Would apply to all stages below
-        */
-  stage('1.git clone')
-        {
-        git credentialsId: 'GitCredentials', url: 'https://github.com/LandmakTechnology/maven-web-app'
-        }                                               //from "Pipeline Syntax" for "Git"
-  stage('2.maven-Build')
-        { 
-        sh '${mavenHome}/bin/mvn clean package'         //using the absolute path for executing the mvn goal
-        }
- stage('3.CodeQualityReport')
-        {
-        sh '${mavenHome}/bin/mvn sonar:sonar'           //using the absolute path for executing the mvn goal
-        }
- stage('4.UploadWarNexus')
-        {
-        sh '${mavenHome}/bin/mvn clean deploy'          //using the absolute path for executing the mvn goal
-        }
- stage('5.DeployTomcat')
-        {
-        deploy adapters: [tomcat9(credentialsId: 'Tomcat_Credentials', path: '', url: 'http://3.85.28.18:7777/')], contextPath: null, war: '**/*.war'
-        }                                           //from "Pipeline Syntax" for "Deploy to Container" using UDP
-        
- stage('6.EmailN') 
-        {
-        emailtext body: '''Hello Everyone,
-        Build from Shaphothan Pipeline Project.
-        Osazee''', subject: 'Build Status', to: 'developers'
-        
-        }
- 
-  } 
+node {
+	
+	def MHD = tool 'M3'
+
+	stage('1.CodeClone'){
+	git credentialsId: 'a89e31ce-2b35-4318-9f9d-f1c25ee53708', url: 'https://github.com/Ojlit/web-app'
+	}
+	stage('2.bulildArtifact'){
+	sh "${MHD}/bin/mvn package"
+	}
+	stage('3.CodeQuality'){
+	sh "${MHD}/bin/mvn sonar:sonar"
+	}
+	stage('4.Upload2Nexus'){
+	sh "${MHD}/bin/mvn deploy"
+	}
+	stage('5.Deploy2Stage'){
+	deploy adapters: [tomcat9(credentialsId: '565a0004-17df-4c9b-a686-89d2c01482a7', path: '', url: 'http://3.16.26.82:8080')], contextPath: null, war: 'target/*war'
+	}
+	stage('6.Appproval2Proceed'){
+	    timeout(time:5, unit:'DAYS'){
+ 			input message: 'Approval for production'
+	}
+	stage('7.Deploy2Prod'){
+	deploy adapters: [tomcat9(credentialsId: '565a0004-17df-4c9b-a686-89d2c01482a7', path: '', url: 'http://3.133.143.205:8080/')], contextPath: null, war: 'target/*war'
+	}
+	stage('8.EmailN'){
+	emailext body: '''Hello Scrum Team,
+
+I thought to inform you of the progress we have made with deploying release 13 of the new software.''', recipientProviders: [developers()], subject: 'CiCd Status', to: 'Scrum Team'
+	}
+	
+	}
+	
+}
+  
   
   ```
 
 
 
-Another example of Scripted Pipeline:
+Another example of Scripted Pipeline using TCP/IP (scp) and agent to deploy to container:
 
 ```sh
 
 //scripted pipeline
-node{
- def MHD = tool name: "maven3.8.4"
-    stage('1.Initiation'){
-    sh "echo Start of td deployment"
-    }
-    stage('2.CloneCode'){
-    git branch: 'stage', credentialsId: 'GitHubCredentials', url: 'https://github.com/LandmakTechnology/web-app'
-    }
-    stage('3.buildMaven'){
-    sh "${MHD}/bin/mvn package"
-    }
-    stage('4.CodeQuality'){
-    //sh "${MHD}/bin/mvn sonar:sonar"
-    }
-    stage('5.UploadArtifacts'){
-    //sh "${MHD}/bin/mvn deploy"
-    }
-    stage('6.Deploy2Stage'){
-    sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
-    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
-    }
-    }                                                                      //deploy using TCP
 
-    stage('7.Approval'){
-    timeout(time:5, unit:'DAYS'){
+node {
+	
+	def MHD = tool 'M3'
+
+	stage('1.CodeClone'){
+	git credentialsId: 'a89e31ce-2b35-4318-9f9d-f1c25ee53708', url: 'https://github.com/Ojlit/web-app'
+	}
+	stage('2.bulildArtifact'){
+	sh "${MHD}/bin/mvn package"
+	}
+	stage('3.CodeQuality'){
+	sh "${MHD}/bin/mvn sonar:sonar"
+	}
+	stage('4.Upload2Nexus'){
+	sh "${MHD}/bin/mvn deploy"
+	}
+	stage('5.Deploy2Stage'){
+	sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
+   sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app"
+	}
+	stage('6.Appproval2Proceed'){
+	    timeout(time:5, unit:'DAYS'){
  			input message: 'Approval for production'
-    }
-    }
-    stage('8.deployToProd'){
-    sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
-    sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app.war"
-    }                                                                     
-    
-    }                                                                    //deploy using TCP
+	}
+	stage('7.Deploy2Prod'){
+	sshagent(['32d5fb4f-d92f-4a10-9f12-2738eab55fcc']) {
+   sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.15.31:/opt/tomcat9/webapps/app.war"
+	}
+	stage('8.EmailN'){
+	emailext body: '''Hello Scrum Team,
+
+I thought to inform you of the progress we have made with deploying release 13 of the new software.''', recipientProviders: [developers()], subject: 'CiCd Status', to: 'Scrum Team'
+	}
+	
+	}
+	
 }
+}
+}
+  
 
 ```
 
