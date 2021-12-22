@@ -158,7 +158,7 @@ cd /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.2/conf/s
  ```
  + add the following user and roles to the tomcat-users.xml file...before the closing tag
  ```sh
- <user username="Osazee" password="admin123" roles="manager-gui,admin-gui,manager-script"/>
+ <user username="Osazee" password="admin" roles="manager-gui,admin-gui,manager-script"/>
  <user username="class26" password="admin123" roles="manager-gui,admin-gui"/>
   ```
 2. Change Tomcat port number if required within:
