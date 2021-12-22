@@ -261,69 +261,6 @@ Builds can be accomplished in 6 ways (1 Manual and 5 Automated):
 
 
 ## Pipeline - 
-### Jenkins Master-Slave Architecture
-+ Jenkins manages SDLC automation
-+ Jenkins Master-Slave Architecture:-
-   + provides flexiblity to continue CI/CD when the Jenkins server is unavailable
-   + makes it possible to execute multiple CI/CD jobs that are required to run concurrently
-   + distributes tasks between mutiple slave servers or executors
-   + Jenkins Executors are agent that permit Jenkins to run jobs in Jenkins Slaves
-   + in the master, it is required to install Jenkins, Java and an SSH Agent Plugin
-   + only Java is required in the slave servers to establish communication with the master 
-   + cummunication between master and slave is established using TCP/IP 
-   + the master and slaves are executors. Hence, at any time, executors = > 2
-   + the slaves are referred to as Unix agent
-   + TCP - Transfer Control Protocol, a secured protocol is preferreed to UDP - User Datagram Protocol) 
-   + TCP => Encrypted data | Secured | 3way handshake   (e.g. https, ssh, scp, rdp)
-   + UDP => Clear Text | unsecured | single directional (e.g. http)
-
-
-#### To install a Jenkins slave, 
-   + launch an ec2 instance (t2-micro is ok) and install Java using AWS "User data"
-   + "User data" is used to install packages while creating a server (vm or ec2)
-   + copy and paste the following in "User data" AWS Step 3: Configure Instance Details
-    
-```sh
-          sudo hostname slave
-          sudo su - ec2-user
-          sudo yum -y install unzip wget tree git
-          sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
-          sudo yum install jdk-8u131-linux-x64.rpm -y
-```
-   
-   
-   + continue to the end of ec2/vm launching steps
-
-#### To Add and Configure slave(s) server(s) in Jenkins-UI
-  + Jenkins-UI Dashboard
-  + Select "Manage Jenkins"
-  + Select "Manage Nodes and Clouds"
-  + Select "New Node" (to Install sshagent plugin)
-  + Add Node Name
-  + Check to select "Permanent Agent"...OK
-  + Add Desription
-  + Add Number of executors
-  + Add Remote root directory => location within slave server (/home/ec2-user/node1)
-  + Under Launch method, Select "Launch agents via SSH"
-  + Enter the public/private IP of the slave
-  + Configure credentials
-  + Add credentials 
-  + For "Kind", Select "SSH Username with private key"
-  + Enter Username (ec2-user)
-  + Select Enter Private Key directly
-  + Copy and paste CI/CD .pem key in dialogue box
-  + Add
-  + Select "Manually trusted key Verification Strategy" for Host Key Verification Strategy
-  + Save
- 
-Restrict jobs to run on slave
-
-***{SSH into slave from Jenkins master CLI}***
-
-
-
-
-
 
 ### Jenkins Scripted and Declarative Pipeline
 + Jenkins Pipelines Builds are either Scripted or Declarative:
@@ -656,7 +593,64 @@ stage("Upload Artifacts Into Nexus"){
 } // Pipeline Close
    
 ```
+### Jenkins Master-Slave Architecture
++ Jenkins manages SDLC automation
++ Jenkins Master-Slave Architecture:-
+   + provides flexiblity to continue CI/CD when the Jenkins server is unavailable
+   + makes it possible to execute multiple CI/CD jobs that are required to run concurrently
+   + distributes tasks between mutiple slave servers or executors
+   + Jenkins Executors are agent that permit Jenkins to run jobs in Jenkins Slaves
+   + in the master, it is required to install Jenkins, Java and an SSH Agent Plugin
+   + only Java is required in the slave servers to establish communication with the master 
+   + cummunication between master and slave is established using TCP/IP 
+   + the master and slaves are executors. Hence, at any time, executors = > 2
+   + the slaves are referred to as Unix agent
+   + TCP - Transfer Control Protocol, a secured protocol is preferreed to UDP - User Datagram Protocol) 
+   + TCP => Encrypted data | Secured | 3way handshake   (e.g. https, ssh, scp, rdp)
+   + UDP => Clear Text | unsecured | single directional (e.g. http)
+
+
+#### To install a Jenkins slave, 
+   + launch an ec2 instance (t2-micro is ok) and install Java using AWS "User data"
+   + "User data" is used to install packages while creating a server (vm or ec2)
+   + copy and paste the following in "User data" AWS Step 3: Configure Instance Details
+    
+```sh
+          sudo hostname slave
+          sudo su - ec2-user
+          sudo yum -y install unzip wget tree git
+          sudo wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm
+          sudo yum install jdk-8u131-linux-x64.rpm -y
+```
    
+   
+   + continue to the end of ec2/vm launching steps
+
+#### To Add and Configure slave(s) server(s) in Jenkins-UI
+  + Jenkins-UI Dashboard
+  + Select "Manage Jenkins"
+  + Select "Manage Nodes and Clouds"
+  + Select "New Node" (to Install sshagent plugin)
+  + Add Node Name
+  + Check to select "Permanent Agent"...OK
+  + Add Desription
+  + Add Number of executors
+  + Add Remote root directory => location within slave server (/home/ec2-user/node1)
+  + Under Launch method, Select "Launch agents via SSH"
+  + Enter the public/private IP of the slave
+  + Configure credentials
+  + Add credentials 
+  + For "Kind", Select "SSH Username with private key"
+  + Enter Username (ec2-user)
+  + Select Enter Private Key directly
+  + Copy and paste CI/CD .pem key in dialogue box
+  + Add
+  + Select "Manually trusted key Verification Strategy" for Host Key Verification Strategy
+  + Save
+ 
+Restrict jobs to run on slave
+
+***{SSH into slave from Jenkins master CLI}***   
 
    
    
