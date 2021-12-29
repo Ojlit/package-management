@@ -98,6 +98,7 @@ echo "end of nexus installation"
   + define the nexus server credentials in the settings.xml file
   + copy and paste the following nexus server details to the server tag in the settings.xml file. Ensure included credentials for nexus are correct
 
+
   ```sh
     <server>
       <id>nexus</id>
@@ -105,6 +106,16 @@ echo "end of nexus installation"
       <password>admin123</password>
     </server>
    ```
+   
++. NB: if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
+   ```sh
+/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
+    
+   ```
++. NB: if a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
+   ```sh
+/home/ec2-user/.m2/repository/node/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
+  ```
 
 ### Uploading Artifacts to Nexus "Releases" Repository
 + To change uploading to "Releases" from "Snapshot" repository
@@ -128,25 +139,16 @@ echo "end of nexus installation"
 + Set-up Pull configuration in Maven
 1. access the nexus proxy repo created
 2. copy the Nexus proxy repo URL
-3. Note: steps 4 & 5 4 below may not be necessary. Consider moving directly to step 6.
-4. within maven project folder CLI, locate the pom.xml file
-5. sudo vi pom.xml
-  + create a new tag named "repository" just before "dependencies" tag
-  + include/paste the URL of the created Nexus proxy repo
-  ```sh
-  <repositories>
-  <repository>
-    <id>nexus</id>
-      <name>Proxy Repo</name>
-        <url>http://54.89.142.136:8000/repository/td-remote-repo/</url>
-  </repository>
-  <repositories>
-  ```
-5. within maven home directory CLI, locate the settings.xml file (conf/settings.xml)
-6. sudo vi /opt/maven/conf/settings.xml
-7. if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
+3. within maven home directory CLI, locate the settings.xml file (conf/settings.xml)
+4. sudo vi /opt/maven/conf/settings.xml
+5. NB: if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
    ```sh
-    /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
+/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
+    
+   ```
+6. NB: if a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
+   ```sh
+/home/ec2-user/.m2/repository/node/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
     
    ```
   + locate the tag named "Mirror"
