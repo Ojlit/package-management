@@ -494,6 +494,73 @@ stages {
    }
    
 ```
+	
+	
+My delarative project using two executors (master + node1) as follows:
+
+```sh
+	
+pipeline {
+    agent any
+    tools {maven "M3"}
+    stages{
+        stage('codeclone'){
+            agent any
+            steps {
+               git credentialsId: 'a89e31ce-2b35-4318-9f9d-f1c25ee53708', url: 'https://github.com/Ojlit/web-app' 
+            }
+        }
+        stage('build'){
+            agent any
+            steps {
+                sh "mvn clean package"
+            }
+        }
+        stage('codequality'){
+            agent any
+            steps {
+                sh "mvn sonar:sonar"
+            }
+        }
+        
+        stage('uploadartifacts'){
+            agent any
+            steps {
+                sh "mvn deploy"
+            } 
+    }
+     
+        stage('deploy2Stage'){
+            agent any
+            steps {
+               sshagent(['8b6fb961-43b4-4995-9b48-e7dab9c8e6d0']) {
+               sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.21.229:/opt/tomcat9/webapps/declare.war"
+}
+            } 
+    }
+    
+        stage('approvaltoproceed'){
+            agent any
+            steps {
+               timeout(time:5, unit:'MINUTES'){
+ 			     input message: 'Approval for production'
+}
+            } 
+    }
+        stage('deploy2Prod'){
+            agent any
+            steps {
+               sshagent(['8b6fb961-43b4-4995-9b48-e7dab9c8e6d0']) {
+               sh "scp -o StrictHostKeyChecking=no target/*war ec2-user@172.31.21.229:/opt/tomcat9/webapps/prod.war"
+}
+            } 
+    }
+}
+}
+	
+```
+	
+	
 + Agent can be "any", "none", jenkins "master" or "slave"
 + Tools refers to the build tool version, the java version, the Git version etc (see the Global Tool Configuration in Jenkins-UI)
 + Options directive is applied where there are nuances when adding an agent to the top level or a stage level
