@@ -43,8 +43,9 @@ sudo chmod -R 775 /opt/sonatype-work
 ```
 ###  Set User to "Nexus"
 + Open /opt/nexus/bin/nexus.rc file
-+ uncomment "run_as_user" parameter and set as nexus user. i.e.
-+ Change from [ #run_as_user="" ] to [ run_as_user="nexus" ]
++ uncomment "run_as_user" parameter and set as "nexus" user. i.e.
++ Change from  #run_as_user="" to  run_as_user="nexus"  or run_as_user="Osazee" provided the indicated user has been added and assigned a password, password authentication is enabled, and sudo rights has been assigned 
+
 
 ```sh
 vi /opt/nexus/bin/nexus.rc
@@ -107,12 +108,12 @@ echo "end of nexus installation"
     </server>
    ```
    
-+. NB: if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
++  NB: if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
    ```sh
 /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
     
    ```
-+. NB: if a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
++  NB: if a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
    ```sh
 /home/ec2-user/.m2/repository/node/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
   ```
@@ -142,15 +143,16 @@ echo "end of nexus installation"
 3. within maven home directory CLI, locate the settings.xml file (conf/settings.xml)
 4. sudo vi /opt/maven/conf/settings.xml
 5. NB: if configuring from Jenkins, access the settings.xml file as follows from the Jenkins CLI:
+
    ```sh
 /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
     
    ```
-6. NB: if a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
+6. NB: If a node (slave) has been used in the pipeline, access the settings.xml file as follows from the Node/Slave CLI:
    ```sh
 /home/ec2-user/.m2/repository/node/tools/hudson.tasks.Maven_MavenInstallation/"maven version"/conf/settings.xml
-    
    ```
+   
   + locate the tag named "Mirror"
   + paste the URL of the created Nexus proxy repo
      ```sh
